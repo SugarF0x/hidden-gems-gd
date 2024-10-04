@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://do2c2yhxyuery"]
+
+[ext_resource type="PackedScene" uid="uid://c1d48fc3udopa" path="res://hud.tscn" id="1_ji2v6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mifkd"]
+bg_color = Color(0, 0.286655, 0.301347, 1)
+
+[node name="HiddenGemsScene" type="Node"]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Panel" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mifkd")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 60
+
+[node name="Hud" parent="UI/MarginContainer" instance=ExtResource("1_ji2v6")]
+layout_mode = 2
+size_flags_vertical = 0
