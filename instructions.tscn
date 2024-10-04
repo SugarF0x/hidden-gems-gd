@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://dp072yb4so4dj"]
+
+[ext_resource type="Script" path="res://instructions.gd" id="1_nmppw"]
+
+[node name="Instructions" type="PanelContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 39.0
+grow_horizontal = 2
+size_flags_vertical = 8
+script = ExtResource("1_nmppw")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "I am some instructions text"
+horizontal_alignment = 1

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://do2c2yhxyuery"]
+[gd_scene load_steps=4 format=3 uid="uid://do2c2yhxyuery"]
 
 [ext_resource type="PackedScene" uid="uid://c1d48fc3udopa" path="res://hud.tscn" id="1_ji2v6"]
+[ext_resource type="PackedScene" uid="uid://dp072yb4so4dj" path="res://instructions.tscn" id="2_faga1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mifkd"]
 bg_color = Color(0, 0.286655, 0.301347, 1)
@@ -39,3 +40,7 @@ theme_override_constants/margin_bottom = 60
 [node name="Hud" parent="UI/MarginContainer" instance=ExtResource("1_ji2v6")]
 layout_mode = 2
 size_flags_vertical = 0
+
+[node name="Instructions" parent="UI/MarginContainer" instance=ExtResource("2_faga1")]
+layout_mode = 2
+size_flags_vertical = 8
