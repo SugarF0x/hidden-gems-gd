@@ -9,6 +9,7 @@ offset_bottom = 39.0
 grow_horizontal = 2
 size_flags_vertical = 8
 script = ExtResource("1_nmppw")
+text = "some text"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -19,5 +20,5 @@ theme_override_constants/margin_bottom = 8
 
 [node name="Label" type="Label" parent="MarginContainer"]
 layout_mode = 2
-text = "I am some instructions text"
+text = "some text"
 horizontal_alignment = 1

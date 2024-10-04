@@ -43,4 +43,4 @@ size_flags_vertical = 0
 
 [node name="Instructions" parent="UI/MarginContainer" instance=ExtResource("2_faga1")]
 layout_mode = 2
-size_flags_vertical = 8
+text = "this is some other text"
