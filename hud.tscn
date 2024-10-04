@@ -1,10 +1,13 @@
-[gd_scene format=3 uid="uid://c1d48fc3udopa"]
+[gd_scene load_steps=2 format=3 uid="uid://c1d48fc3udopa"]
+
+[ext_resource type="Script" path="res://hud.gd" id="1_o4mxl"]
 
 [node name="Hud" type="PanelContainer"]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 56.0
 grow_horizontal = 2
+script = ExtResource("1_o4mxl")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -28,4 +31,4 @@ text = "1/10"
 [node name="ScoreLabel" type="Label" parent="HBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
-text = "1000"
+text = "0"
