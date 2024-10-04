@@ -1,45 +1,31 @@
 [gd_scene format=3 uid="uid://c1d48fc3udopa"]
 
-[node name="Hud" type="Control"]
-custom_minimum_size = Vector2(0, 56)
-layout_mode = 3
+[node name="Hud" type="PanelContainer"]
 anchors_preset = 10
 anchor_right = 1.0
+offset_bottom = 56.0
 grow_horizontal = 2
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Button" type="Button" parent="Panel/HBoxContainer"]
-custom_minimum_size = Vector2(56, 0)
+[node name="Button" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
 text = "||"
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_right = 16
 
-[node name="RoundLabel" type="Label" parent="Panel/HBoxContainer/MarginContainer"]
+[node name="RoundLabel" type="Label" parent="HBoxContainer/MarginContainer"]
 layout_mode = 2
 text = "1/10"
 
-[node name="ScoreLabel" type="Label" parent="Panel/HBoxContainer/MarginContainer"]
+[node name="ScoreLabel" type="Label" parent="HBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 text = "1000"
