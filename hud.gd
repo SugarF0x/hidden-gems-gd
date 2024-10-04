@@ -6,6 +6,7 @@ extends PanelContainer
 
 @export var current_round: int = 1:
 	set(value):
+		print('Setting big time! %s %s' % [str(current_round), str(value)])
 		current_round = value
 		update_round_label()
 
