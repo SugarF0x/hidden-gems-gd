@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://do2c2yhxyuery"]
+[gd_scene load_steps=5 format=3 uid="uid://do2c2yhxyuery"]
 
 [ext_resource type="PackedScene" uid="uid://c1d48fc3udopa" path="res://hud.tscn" id="1_ji2v6"]
 [ext_resource type="PackedScene" uid="uid://dp072yb4so4dj" path="res://instructions.tscn" id="2_faga1"]
+[ext_resource type="PackedScene" uid="uid://rhrcaxbp0wpy" path="res://grid.tscn" id="3_jakn1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mifkd"]
 bg_color = Color(0, 0.286655, 0.301347, 1)
@@ -44,3 +45,8 @@ size_flags_vertical = 0
 [node name="Instructions" parent="UI/MarginContainer" instance=ExtResource("2_faga1")]
 layout_mode = 2
 text = "this is some other text"
+
+[node name="Grid" parent="UI/MarginContainer" instance=ExtResource("3_jakn1")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
