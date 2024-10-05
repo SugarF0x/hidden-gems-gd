@@ -18,8 +18,18 @@ extends PanelContainer
 @export var score: int = 0:
 	set(value):
 		score = value
-		if score_label: score_label.text = str(value)
+		update_score_label()
+
+func _process(delta):
+	if not Engine.is_editor_hint(): return
+	update_round_label()
+	update_score_label()
 
 func update_round_label():
 	if not round_label: return
-	round_label.text = "{current}/{total}".format({ "current": str(current_round), "total": str(total_rounds) })
+	var new_value = "{current}/{total}".format({ "current": str(current_round), "total": str(total_rounds) })
+	if round_label.text != new_value: round_label.text = new_value
+
+func update_score_label():
+	if not score_label: return
+	if score_label.text != str(score): score_label.text = str(score)
