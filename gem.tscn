@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://56q1v0fgl0yi"]
+
+[ext_resource type="Script" path="res://gem.gd" id="1_e1ali"]
+[ext_resource type="Texture2D" uid="uid://i0i7fay6w047" path="res://assets/gems/7.svg" id="2_aesg0"]
+
+[node name="Gem" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 69.0
+offset_bottom = 68.0
+script = ExtResource("1_e1ali")
+
+[node name="GemTextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+offset_right = 69.0
+offset_bottom = 68.0
+texture = ExtResource("2_aesg0")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"FlatButton"

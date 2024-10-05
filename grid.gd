@@ -1,15 +1,17 @@
 @tool
 extends GridContainer
 
-@export var height: int = 5:
-	set(value):
-		height = value
-		redraw_grid()
-	
-@export var width: int = 4:
+var gem_scene: PackedScene = load("res://gem.tscn")
+
+@export var width: int = 2:
 	set(value):
 		columns = value
 		width = value
+		redraw_grid()
+
+@export var height: int = 3:
+	set(value):
+		height = value
 		redraw_grid()
 
 func _ready():
@@ -18,6 +20,5 @@ func _ready():
 func redraw_grid():
 	for child in get_children(): child.queue_free()
 	for n in (height * width):
-		var item := Panel.new()
-		item.custom_minimum_size = Vector2(50, 50)
+		var item = gem_scene.instantiate()
 		add_child(item)

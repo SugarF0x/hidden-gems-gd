@@ -5,6 +5,5 @@
 [node name="Grid" type="GridContainer"]
 offset_right = 104.0
 offset_bottom = 104.0
+columns = 2
 script = ExtResource("1_g6546")
-height = 1
-width = 1
