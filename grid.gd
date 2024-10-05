@@ -1,12 +1,12 @@
 @tool
 extends GridContainer
 
-@export var height: int = 2:
+@export var height: int = 5:
 	set(value):
 		height = value
 		redraw_grid()
 	
-@export var width: int = 2:
+@export var width: int = 4:
 	set(value):
 		columns = value
 		width = value

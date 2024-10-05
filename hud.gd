@@ -20,8 +20,7 @@ extends PanelContainer
 		score = value
 		update_score_label()
 
-func _process(delta):
-	if not Engine.is_editor_hint(): return
+func _ready():
 	update_round_label()
 	update_score_label()
 

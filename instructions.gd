@@ -6,9 +6,11 @@ extends PanelContainer
 @export var text: String = "sample instructions text":
 	set(value): 
 		text = value
-		if label: label.text = value
+		update_label()
 
-func _process(delta):
-	if not Engine.is_editor_hint(): return
+func _ready():
+	update_label()
+
+func update_label():
 	if not label: return
 	if label.text != text: label.text = text

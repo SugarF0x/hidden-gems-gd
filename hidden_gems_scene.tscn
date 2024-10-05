@@ -41,14 +41,15 @@ theme_override_constants/margin_bottom = 60
 [node name="Hud" parent="UI/MarginContainer" instance=ExtResource("1_ji2v6")]
 layout_mode = 2
 size_flags_vertical = 0
-current_round = 1
-total_rounds = 10
 
 [node name="Instructions" parent="UI/MarginContainer" instance=ExtResource("2_faga1")]
 layout_mode = 2
-text = "this is some other text"
+text = "i can change it here too"
 
 [node name="Grid" parent="UI/MarginContainer" instance=ExtResource("3_jakn1")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+columns = 3
+height = 3
+width = 3
