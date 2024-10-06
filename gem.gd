@@ -24,7 +24,7 @@ const BACKGROUND_IMAGES = {
 @onready var background_texture_rect: TextureRect = $BackgroundTextureRect
 @onready var gem_texture_rect: TextureRect = $GemTextureRect
 
-@export var state := BackgroundState.EMPTY:
+@export var state := BackgroundState.HIDDEN:
 	set(value):
 		state = value
 		update_background_image()
@@ -83,8 +83,8 @@ func update_gem_visibility() -> void:
 	else: gem_texture_rect.visible = false
 
 func _editor_on_ready() -> void:
-	if not Engine.is_editor_hint(): return
-	state = BackgroundState.FOUND
+	if Engine.is_editor_hint(): state = BackgroundState.FOUND
+	else: state = BackgroundState.HIDDEN
 
 signal gem_clicked
 func on_gem_clicked():
