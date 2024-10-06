@@ -8,11 +8,13 @@ var gem_scene: PackedScene = load("res://gem.tscn")
 	set(value):
 		columns = value
 		width = value
+		randomize_gem_indexes()
 		redraw_grid()
 
 @export var height: int = 3:
 	set(value):
 		height = value
+		randomize_gem_indexes()
 		redraw_grid()
 
 @export var gem_count: int = 2:
@@ -21,20 +23,23 @@ var gem_scene: PackedScene = load("res://gem.tscn")
 		randomize_gem_indexes()
 		redraw_grid()
 
+var gem_children: Array[Gem] = []
 var gem_indexes: Array[int] = []
 
 func _ready() -> void:
 	start()
-	_editor_on_ready()
 
 func redraw_grid() -> void:
-	if get_child_count() == height * width: return
-	
 	for child in get_children(): child.queue_free()
+	gem_children.clear()
+	
 	for n in (height * width):
 		var item := gem_scene.instantiate() as Gem
 		add_child(item)
+		gem_children.append(item)
 		item.gem_clicked.connect(on_gem_clicked.bind(n))
+		
+	if Engine.is_editor_hint(): reveal_gems()
 
 func randomize_gem_indexes() -> void:
 	gem_indexes.clear()
@@ -46,7 +51,7 @@ func randomize_gem_indexes() -> void:
 var gems_user_revealed: int = 0
 func on_gem_clicked(index: int) -> void:
 	gems_user_revealed += 1
-	var gem = get_child(index) as Gem
+	var gem = gem_children[index]
 	gem.state = Gem.BackgroundState.FOUND if index in gem_indexes else Gem.BackgroundState.WRONG
 	set_gem_processing(index, false)
 	
@@ -55,12 +60,12 @@ func on_gem_clicked(index: int) -> void:
 		on_round_end()
 
 func reveal_gems() -> void:
-	for index in get_child_count(): 
-		var child = get_child(index) as Gem
-		child.state = Gem.BackgroundState.FOUND if index in gem_indexes else Gem.BackgroundState.EMPTY
+	for index in gem_children.size(): 
+		var gem = gem_children[index] as Gem
+		gem.state = Gem.BackgroundState.FOUND if index in gem_indexes else Gem.BackgroundState.EMPTY
 
 func hide_gems() -> void:
-	for child in get_children() as Array[Gem]: child.state = Gem.BackgroundState.HIDDEN
+	for gem in gem_children as Array[Gem]: gem.state = Gem.BackgroundState.HIDDEN
 
 func start() -> void:
 	randomize_gem_indexes()
@@ -68,13 +73,13 @@ func start() -> void:
 	if Engine.is_editor_hint(): return
 	
 	reveal_gems()
-	for index in get_child_count(): set_gem_processing(index, false)
+	for index in gem_children.size(): set_gem_processing(index, false)
 	await get_tree().create_timer(2.0).timeout
-	for index in get_child_count(): set_gem_processing(index, true)
+	for index in gem_children.size(): set_gem_processing(index, true)
 	hide_gems()
 
 func set_gem_processing(index: int, value: bool) -> void:
-	get_child(index).process_mode = Node.PROCESS_MODE_INHERIT if value else Node.PROCESS_MODE_DISABLED
+	gem_children[index].process_mode = Node.PROCESS_MODE_INHERIT if value else Node.PROCESS_MODE_DISABLED
 
 # TODO: a lot of this logic is to be moved out into a parent script that would also have control over instructions and hud along with this
 
@@ -91,7 +96,3 @@ func on_round_end() -> void:
 	await get_tree().create_timer(.5).timeout
 	redraw_grid()
 	start()
-
-func _editor_on_ready() -> void:
-	if not Engine.is_editor_hint(): return
-	reveal_gems()
