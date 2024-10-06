@@ -1,20 +1,38 @@
-[gd_scene load_steps=3 format=3 uid="uid://56q1v0fgl0yi"]
+[gd_scene load_steps=4 format=3 uid="uid://56q1v0fgl0yi"]
 
 [ext_resource type="Script" path="res://gem.gd" id="1_e1ali"]
-[ext_resource type="Texture2D" uid="uid://i0i7fay6w047" path="res://assets/gems/7.svg" id="2_aesg0"]
+[ext_resource type="Texture2D" uid="uid://xxk4vwn1128n" path="res://assets/gems/2.svg" id="2_tkjgv"]
+[ext_resource type="Texture2D" uid="uid://degqyot6ax5qi" path="res://assets/backgrounds/empty.svg" id="2_wl60v"]
 
 [node name="Gem" type="Control"]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 69.0
 offset_bottom = 68.0
 script = ExtResource("1_e1ali")
 
+[node name="BackgroundTextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_wl60v")
+
 [node name="GemTextureRect" type="TextureRect" parent="."]
-layout_mode = 2
-offset_right = 69.0
-offset_bottom = 68.0
-texture = ExtResource("2_aesg0")
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.5
+offset_top = -34.0
+offset_right = 34.5
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_tkjgv")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
