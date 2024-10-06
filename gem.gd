@@ -85,3 +85,7 @@ func update_gem_visibility() -> void:
 func _editor_on_ready() -> void:
 	if not Engine.is_editor_hint(): return
 	state = BackgroundState.FOUND
+
+signal gem_clicked
+func on_gem_clicked():
+	gem_clicked.emit()

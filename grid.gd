@@ -33,6 +33,7 @@ func redraw_grid() -> void:
 		var item := gem_scene.instantiate() as Gem
 		add_child(item)
 		item.state = Gem.BackgroundState.FOUND if n in gem_indexes else Gem.BackgroundState.EMPTY
+		item.gem_clicked.connect(on_gem_clicked.bind(n))
 
 func randomize_gem_indexes() -> void:
 	gem_indexes.clear()
@@ -40,6 +41,9 @@ func randomize_gem_indexes() -> void:
 	for i in range(width * height): pool.append(i)
 	pool.shuffle()
 	gem_indexes = pool.slice(0, gem_count)
+
+func on_gem_clicked(index: int) -> void:
+	print("Gem ", index, " clicked")
 
 func _editor_on_ready() -> void:
 	if not Engine.is_editor_hint(): return
