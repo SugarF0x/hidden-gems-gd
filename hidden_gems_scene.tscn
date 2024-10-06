@@ -44,12 +44,11 @@ size_flags_vertical = 0
 
 [node name="Instructions" parent="UI/MarginContainer" instance=ExtResource("2_faga1")]
 layout_mode = 2
-text = "i can change it here too"
 
 [node name="Grid" parent="UI/MarginContainer" instance=ExtResource("3_jakn1")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 columns = 3
-height = 3
 width = 3
+gem_count = 3
