@@ -1,13 +1,15 @@
 @tool
 class_name GemGrid
-extends GridContainer
+extends PanelContainer
 
 var gem_scene: PackedScene = load("res://gem.tscn")
 
+@onready var grid_container: GridContainer = $MarginContainer/GridContainer
+
 @export var width: int = 2:
 	set(value):
-		columns = value
 		width = value
+		sync_grid_size()
 		randomize_gem_indexes()
 		redraw_grid()
 
@@ -27,15 +29,21 @@ var gem_children: Array[Gem] = []
 var gem_indexes: Array[int] = []
 
 func _ready() -> void:
+	sync_grid_size()
 	start()
 
+func sync_grid_size() -> void:
+	if grid_container: grid_container.columns = width
+
 func redraw_grid() -> void:
-	for child in get_children(): child.queue_free()
+	if not grid_container: return
+	
+	for child in grid_container.get_children(): child.queue_free()
 	gem_children.clear()
 	
 	for n in (height * width):
 		var item := gem_scene.instantiate() as Gem
-		add_child(item)
+		grid_container.add_child(item)
 		gem_children.append(item)
 		item.gem_clicked.connect(on_gem_clicked.bind(n))
 		
