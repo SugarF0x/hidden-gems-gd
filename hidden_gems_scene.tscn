@@ -1,11 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://do2c2yhxyuery"]
+[gd_scene load_steps=6 format=3 uid="uid://do2c2yhxyuery"]
 
 [ext_resource type="PackedScene" uid="uid://c1d48fc3udopa" path="res://hud.tscn" id="1_ji2v6"]
+[ext_resource type="Texture2D" uid="uid://m4k810srmrml" path="res://assets/background-1.svg" id="1_w2h53"]
 [ext_resource type="PackedScene" uid="uid://dp072yb4so4dj" path="res://instructions.tscn" id="2_faga1"]
+[ext_resource type="Texture2D" uid="uid://cs4dan6tortjv" path="res://assets/background-2.svg" id="2_sbatb"]
 [ext_resource type="PackedScene" uid="uid://rhrcaxbp0wpy" path="res://grid.tscn" id="3_jakn1"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mifkd"]
-bg_color = Color(0, 0.286655, 0.301347, 1)
 
 [node name="HiddenGemsScene" type="Node"]
 
@@ -17,16 +16,32 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="Panel" parent="UI"]
+[node name="Background" type="Control" parent="UI"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_mifkd")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI"]
+[node name="LinesTextureRect" type="TextureRect" parent="UI/Background"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_w2h53")
+
+[node name="IllustrationTextureRect" type="TextureRect" parent="UI/Background"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -290.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("2_sbatb")
+
+[node name="ContentContainer" type="MarginContainer" parent="UI"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,14 +53,14 @@ theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 60
 
-[node name="Hud" parent="UI/MarginContainer" instance=ExtResource("1_ji2v6")]
+[node name="Hud" parent="UI/ContentContainer" instance=ExtResource("1_ji2v6")]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Instructions" parent="UI/MarginContainer" instance=ExtResource("2_faga1")]
+[node name="Instructions" parent="UI/ContentContainer" instance=ExtResource("2_faga1")]
 layout_mode = 2
 
-[node name="Grid" parent="UI/MarginContainer" instance=ExtResource("3_jakn1")]
+[node name="Grid" parent="UI/ContentContainer" instance=ExtResource("3_jakn1")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
