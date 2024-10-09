@@ -1,12 +1,11 @@
 @tool
 extends PanelContainer
 
-@onready var round_label: Label = $HBoxContainer/MarginContainer/RoundLabel
-@onready var score_label: Label = $HBoxContainer/MarginContainer/ScoreLabel
+@onready var round_label: Label = %RoundLabel
+@onready var score_label: Label = %ScoreLabel
 
 @export var current_round: int = 1:
 	set(value):
-		print('Setting big time! %s %s' % [str(current_round), str(value)])
 		current_round = value
 		update_round_label()
 
@@ -32,3 +31,6 @@ func update_round_label():
 func update_score_label():
 	if not score_label: return
 	if score_label.text != str(score): score_label.text = str(score)
+
+signal pause_pressed
+func on_pause_pressed(): pause_pressed.emit()
