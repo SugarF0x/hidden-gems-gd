@@ -1,6 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://dp072yb4so4dj"]
+[gd_scene load_steps=3 format=3 uid="uid://dp072yb4so4dj"]
 
 [ext_resource type="Script" path="res://instructions.gd" id="1_nmppw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0je3t"]
+bg_color = Color(0.0901961, 0.337255, 0.388235, 0.6)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.156863, 0.435294, 0.494118, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="Instructions" type="PanelContainer"]
 anchors_preset = 10
@@ -8,6 +20,7 @@ anchor_right = 1.0
 offset_bottom = 39.0
 grow_horizontal = 2
 size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_0je3t")
 script = ExtResource("1_nmppw")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
