@@ -1,8 +1,46 @@
-[gd_scene load_steps=4 format=3 uid="uid://56q1v0fgl0yi"]
+[gd_scene load_steps=7 format=3 uid="uid://56q1v0fgl0yi"]
 
 [ext_resource type="Script" path="res://gem.gd" id="1_e1ali"]
 [ext_resource type="Texture2D" uid="uid://dpgew03covbjf" path="res://assets/backgrounds/found.svg" id="2_p743g"]
-[ext_resource type="Texture2D" uid="uid://bjqps6o0sqyr6" path="res://assets/gems/4.svg" id="3_4avep"]
+[ext_resource type="Texture2D" uid="uid://c7c8fmrpa0hxy" path="res://assets/gems/1.svg" id="3_46vhp"]
+
+[sub_resource type="Animation" id="Animation_et3wj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_54rgc"]
+resource_name = "press_in"
+length = 0.05
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.9, 0.9)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q13n7"]
+_data = {
+"RESET": SubResource("Animation_et3wj"),
+"press": SubResource("Animation_54rgc")
+}
 
 [node name="Gem" type="Control"]
 custom_minimum_size = Vector2(100, 100)
@@ -10,8 +48,14 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 69.0
 offset_bottom = 68.0
+pivot_offset = Vector2(50, 50)
 script = ExtResource("1_e1ali")
 state = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_q13n7")
+}
 
 [node name="BackgroundTextureRect" type="TextureRect" parent="."]
 layout_mode = 0
@@ -32,7 +76,7 @@ offset_right = 34.5
 offset_bottom = 34.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_4avep")
+texture = ExtResource("3_46vhp")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
@@ -45,4 +89,6 @@ focus_mode = 0
 theme_type_variation = &"FlatButton"
 flat = true
 
+[connection signal="button_down" from="Button" to="." method="on_press_down"]
+[connection signal="button_up" from="Button" to="." method="on_press_up"]
 [connection signal="pressed" from="Button" to="." method="on_gem_clicked"]

@@ -23,6 +23,9 @@ const BACKGROUND_IMAGES = {
 
 @onready var background_texture_rect: TextureRect = $BackgroundTextureRect
 @onready var gem_texture_rect: TextureRect = $GemTextureRect
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+@export var disabled: bool = false
 
 @export var state := BackgroundState.HIDDEN:
 	set(value):
@@ -87,5 +90,6 @@ func _editor_on_ready() -> void:
 	else: state = BackgroundState.HIDDEN
 
 signal gem_clicked
-func on_gem_clicked():
-	gem_clicked.emit()
+func on_gem_clicked(): if not disabled: gem_clicked.emit()
+func on_press_down(): if not disabled: animation_player.play("press")
+func on_press_up(): if not disabled: animation_player.play_backwards("press")
