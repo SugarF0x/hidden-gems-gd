@@ -89,6 +89,13 @@ func _editor_on_ready() -> void:
 	if Engine.is_editor_hint(): state = BackgroundState.FOUND
 	else: state = BackgroundState.HIDDEN
 
+func set_opacity(value: float) -> void: modulate.a = value
+
+func fade(value: bool) -> Signal:
+	if value: animation_player.play("fade")
+	else: animation_player.play_backwards("fade")
+	return animation_player.animation_finished
+
 signal gem_clicked
 func on_gem_clicked(): if not disabled: gem_clicked.emit()
 func on_press_down(): if not disabled: animation_player.play("press")

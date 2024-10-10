@@ -5,6 +5,7 @@ extends PanelContainer
 var gem_scene: PackedScene = load("res://gem.tscn")
 
 @onready var grid_container: GridContainer = $MarginContainer/GridContainer
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export var width: int = 2:
 	set(value):
@@ -16,6 +17,7 @@ var gem_scene: PackedScene = load("res://gem.tscn")
 @export var height: int = 3:
 	set(value):
 		height = value
+		sync_grid_size()
 		randomize_gem_indexes()
 		redraw_grid()
 
@@ -31,9 +33,11 @@ var gem_indexes: Array[int] = []
 func _ready() -> void:
 	sync_grid_size()
 	start()
+	resized.connect(func(): pivot_offset = get_size() / 2)
 
 func sync_grid_size() -> void:
-	if grid_container: grid_container.columns = width
+	if not grid_container: return
+	grid_container.columns = width
 
 func redraw_grid() -> void:
 	if not grid_container: return
@@ -61,7 +65,7 @@ func on_gem_clicked(index: int) -> void:
 	gems_user_revealed += 1
 	var gem = gem_children[index]
 	gem.state = Gem.BackgroundState.FOUND if index in gem_indexes else Gem.BackgroundState.WRONG
-	set_gem_processing(index, false)
+	#set_gem_processing(index, false)
 	
 	if gems_user_revealed >= gem_count: 
 		gems_user_revealed = 0
@@ -80,27 +84,43 @@ func start() -> void:
 	redraw_grid()
 	if Engine.is_editor_hint(): return
 	
+	fade(true)
 	reveal_gems()
-	for index in gem_children.size(): set_gem_processing(index, false)
 	await get_tree().create_timer(2.0).timeout
-	for index in gem_children.size(): set_gem_processing(index, true)
 	hide_gems()
-
-func set_gem_processing(index: int, value: bool) -> void:
-	gem_children[index].process_mode = Node.PROCESS_MODE_INHERIT if value else Node.PROCESS_MODE_DISABLED
 
 # TODO: a lot of this logic is to be moved out into a parent script that would also have control over instructions and hud along with this
 
 func on_round_end() -> void:
 	for index in get_child_count():
 		var gem = get_child(index) as Gem
-		if gem.process_mode == Node.PROCESS_MODE_DISABLED: continue
+		#if gem.process_mode == Node.PROCESS_MODE_DISABLED: continue
 		if index not in gem_indexes: continue
 		if gem.state == Gem.BackgroundState.HIDDEN: gem.state = Gem.BackgroundState.MISSED if index in gem_indexes else Gem.BackgroundState.EMPTY
-		set_gem_processing(index, false)
 	
 	await get_tree().create_timer(2.0).timeout
 	hide_gems()
 	await get_tree().create_timer(.5).timeout
 	redraw_grid()
 	start()
+
+func call_with_delay(fun: Callable, delay_time: float) -> void:
+	await get_tree().create_timer(delay_time).timeout
+	fun.call()
+
+func fade(value: bool) -> Signal:
+	if (not value):
+		animation_player.play_backwards("fade")
+		return animation_player.animation_finished
+	
+	animation_player.play("fade")
+	
+	var gem_animation_pool = gem_children.duplicate()
+	gem_animation_pool.shuffle()
+	
+	for gem_index in gem_animation_pool.size(): 
+		var gem = gem_animation_pool[gem_index] as Gem
+		gem.set_opacity(0.0)
+		call_with_delay(gem.fade.bind(true), .05 * gem_index)
+	
+	return animation_player.animation_finished

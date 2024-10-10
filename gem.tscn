@@ -1,8 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://56q1v0fgl0yi"]
+[gd_scene load_steps=8 format=3 uid="uid://56q1v0fgl0yi"]
 
 [ext_resource type="Script" path="res://gem.gd" id="1_e1ali"]
 [ext_resource type="Texture2D" uid="uid://dpgew03covbjf" path="res://assets/backgrounds/found.svg" id="2_p743g"]
-[ext_resource type="Texture2D" uid="uid://c7c8fmrpa0hxy" path="res://assets/gems/1.svg" id="3_46vhp"]
+[ext_resource type="Texture2D" uid="uid://xxk4vwn1128n" path="res://assets/gems/2.svg" id="3_gvfaf"]
 
 [sub_resource type="Animation" id="Animation_et3wj"]
 length = 0.001
@@ -17,6 +17,35 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6w7p5"]
+resource_name = "fade"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_54rgc"]
@@ -39,6 +68,7 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q13n7"]
 _data = {
 "RESET": SubResource("Animation_et3wj"),
+"fade": SubResource("Animation_6w7p5"),
 "press": SubResource("Animation_54rgc")
 }
 
@@ -76,7 +106,7 @@ offset_right = 34.5
 offset_bottom = 34.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_46vhp")
+texture = ExtResource("3_gvfaf")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
