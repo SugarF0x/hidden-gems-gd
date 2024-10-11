@@ -96,7 +96,12 @@ func fade(value: bool) -> Signal:
 	else: animation_player.play_backwards("fade")
 	return animation_player.animation_finished
 
+func play_press(value: bool) -> Signal:
+	if value: animation_player.play("press")
+	else: animation_player.play_backwards("press")
+	return animation_player.animation_finished
+
 signal gem_clicked
 func on_gem_clicked(): if not disabled: gem_clicked.emit()
-func on_press_down(): if not disabled: animation_player.play("press")
-func on_press_up(): if not disabled: animation_player.play_backwards("press")
+func on_press_down(): if not disabled: play_press(true)
+func on_press_up(): if not disabled: play_press(false)

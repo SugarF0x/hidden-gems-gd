@@ -87,21 +87,22 @@ func start() -> void:
 	fade(true)
 	reveal_gems()
 	await get_tree().create_timer(2.0).timeout
+	await play_gems_press(true)
 	hide_gems()
+	await play_gems_press(false)
 
 # TODO: a lot of this logic is to be moved out into a parent script that would also have control over instructions and hud along with this
 
 func on_round_end() -> void:
-	for index in get_child_count():
-		var gem = get_child(index) as Gem
+	for index in gem_children.size():
+		var gem = gem_children[index]
 		#if gem.process_mode == Node.PROCESS_MODE_DISABLED: continue
 		if index not in gem_indexes: continue
 		if gem.state == Gem.BackgroundState.HIDDEN: gem.state = Gem.BackgroundState.MISSED if index in gem_indexes else Gem.BackgroundState.EMPTY
 	
 	await get_tree().create_timer(2.0).timeout
+	await fade(false)
 	hide_gems()
-	await get_tree().create_timer(.5).timeout
-	redraw_grid()
 	start()
 
 func call_with_delay(fun: Callable, delay_time: float) -> void:
@@ -124,3 +125,8 @@ func fade(value: bool) -> Signal:
 		call_with_delay(gem.fade.bind(true), .05 * gem_index)
 	
 	return animation_player.animation_finished
+
+func play_gems_press(value: bool) -> Signal:
+	var sig: Signal
+	for gem in gem_children: sig = gem.play_press(value)
+	return sig
