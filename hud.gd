@@ -1,4 +1,5 @@
 @tool
+class_name Hud
 extends PanelContainer
 
 @onready var round_label: Label = %RoundLabel

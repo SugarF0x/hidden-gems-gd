@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://do2c2yhxyuery"]
+[gd_scene load_steps=7 format=3 uid="uid://do2c2yhxyuery"]
 
+[ext_resource type="Script" path="res://hidden_gems_scene.gd" id="1_5gwpp"]
 [ext_resource type="PackedScene" uid="uid://c1d48fc3udopa" path="res://hud.tscn" id="1_ji2v6"]
 [ext_resource type="Texture2D" uid="uid://m4k810srmrml" path="res://assets/background-1.svg" id="1_w2h53"]
 [ext_resource type="PackedScene" uid="uid://dp072yb4so4dj" path="res://instructions.tscn" id="2_faga1"]
@@ -7,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://rhrcaxbp0wpy" path="res://grid.tscn" id="3_jakn1"]
 
 [node name="HiddenGemsScene" type="Node"]
+script = ExtResource("1_5gwpp")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -65,4 +67,4 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 width = 3
-gem_count = 3
+correct_gem_indexes = Array[int]([1, 8, 2])

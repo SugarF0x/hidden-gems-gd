@@ -1,4 +1,5 @@
 @tool
+class_name Instructions
 extends PanelContainer
 
 @onready var label: Label = $MarginContainer/Label

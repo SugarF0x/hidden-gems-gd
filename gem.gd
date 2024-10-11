@@ -25,7 +25,9 @@ const BACKGROUND_IMAGES = {
 @onready var gem_texture_rect: TextureRect = $GemTextureRect
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-@export var disabled: bool = false
+var disabled: bool = false
+func disable() -> void: disabled = true
+func enable() -> void: disabled = false
 
 @export var state := BackgroundState.HIDDEN:
 	set(value):
@@ -103,5 +105,11 @@ func play_press(value: bool) -> Signal:
 
 signal gem_clicked
 func on_gem_clicked(): if not disabled: gem_clicked.emit()
-func on_press_down(): if not disabled: play_press(true)
-func on_press_up(): if not disabled: play_press(false)
+
+var _is_pressed: bool = false
+func on_press_down(): if not disabled: 
+	_is_pressed = true
+	play_press(true)
+func on_press_up(): if not disabled || _is_pressed: 
+	_is_pressed = false
+	play_press(false)
