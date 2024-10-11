@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0uit3ap00f1p"]
+
+[ext_resource type="Script" path="res://game_scene.gd" id="1_3pe30"]
+[ext_resource type="PackedScene" uid="uid://c1d48fc3udopa" path="res://hud.tscn" id="1_7lggq"]
+[ext_resource type="PackedScene" uid="uid://dp072yb4so4dj" path="res://instructions.tscn" id="2_fu5pw"]
+[ext_resource type="PackedScene" uid="uid://rhrcaxbp0wpy" path="res://grid.tscn" id="3_545e7"]
+
+[node name="GameScene" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 60
+script = ExtResource("1_3pe30")
+
+[node name="Hud" parent="." instance=ExtResource("1_7lggq")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Grid" parent="." instance=ExtResource("3_545e7")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+width = 3
+correct_gem_indexes = Array[int]([5, 6, 3])
+
+[node name="Instructions" parent="." instance=ExtResource("2_fu5pw")]
+layout_mode = 2
