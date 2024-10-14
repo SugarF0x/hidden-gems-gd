@@ -17,15 +17,15 @@ theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 60
 script = ExtResource("1_3pe30")
 
-[node name="Hud" parent="." instance=ExtResource("1_7lggq")]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="GridContainer" type="Control" parent="."]
+[node name="Container" type="Control" parent="."]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Grid" parent="GridContainer" instance=ExtResource("3_545e7")]
+[node name="Hud" parent="Container" instance=ExtResource("1_7lggq")]
+layout_mode = 1
+size_flags_vertical = 0
+
+[node name="Grid" parent="Container" instance=ExtResource("3_545e7")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -44,5 +44,11 @@ size_flags_vertical = 4
 width = 3
 correct_gem_indexes = Array[int]([1, 3, 0])
 
-[node name="Instructions" parent="." instance=ExtResource("2_fu5pw")]
-layout_mode = 2
+[node name="Instructions" parent="Container" instance=ExtResource("2_fu5pw")]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -41.0
+offset_bottom = 0.0
+grow_vertical = 0

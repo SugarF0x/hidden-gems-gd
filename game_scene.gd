@@ -1,25 +1,34 @@
 @tool
 extends MarginContainer
 
-@onready var hud: Hud = $Hud
-@onready var instructions: Instructions = $Instructions
-@onready var grid: GemGrid = $GridContainer/Grid
+@onready var hud: Hud = $Container/Hud
+@onready var instructions: Instructions = $Container/Instructions
+@onready var grid: GemGrid = $Container/Grid
 
 var gem_count: int = 3
 
 func _ready() -> void:
-	set_hud_target_positions()
-	set_instructions_target_positions()
-	grid.gem_clicked.connect(on_gem_pressed)
-	if not Engine.is_editor_hint(): 
-		set_starting_node_properties()
-		await hud_in(true)
-		start_round()
-	else: randomize_gem_indexes()
+	setup()
 
 func set_starting_node_properties():
 	grid.modulate.a = 0
-	create_tween().tween_property(instructions, 'position', instructions_out_of_bounds_position, 0.0)
+	instructions.position = instructions_out_of_bounds_position
+	hud.position = hud_out_of_bounds_position
+
+func setup() -> void:
+	call_deferred('setup_layout')
+	grid.gem_clicked.connect(on_gem_pressed)
+	if not Engine.is_editor_hint(): call_deferred('initial_transition')
+	else: randomize_gem_indexes()
+
+func setup_layout() -> void:
+	set_hud_target_positions()
+	set_instructions_target_positions()
+
+func initial_transition() -> void:
+	set_starting_node_properties()
+	await hud_in(true)
+	start_round()
 
 func start_round() -> void:
 	randomize_gem_indexes()
@@ -57,24 +66,24 @@ func randomize_gem_indexes() -> void:
 var hud_out_of_bounds_position: Vector2
 var hud_initial_position: Vector2
 func set_hud_target_positions() -> void:
-	hud_initial_position = Vector2(get_theme_constant("margin_left"), get_theme_constant("margin_top"))
-	hud_out_of_bounds_position = Vector2(hud_initial_position.x, -hud_initial_position.y - hud.get_size().y)
+	hud_initial_position = hud.position
+	hud_out_of_bounds_position = Vector2(hud_initial_position.x, -hud.get_screen_position().y - hud.get_size().y)
 
 var instructions_out_of_bounds_position: Vector2
 var instructions_initial_position: Vector2
 func set_instructions_target_positions() -> void:
-	instructions_initial_position = Vector2(get_theme_constant("margin_left"), get_size().y - get_theme_constant("margin_bottom") - instructions.get_size().y)
-	instructions_out_of_bounds_position = Vector2(instructions_initial_position.x, get_size().y)
+	instructions_initial_position = instructions.position
+	instructions_out_of_bounds_position = Vector2(instructions_initial_position.x, instructions.position.y + DisplayServer.window_get_size().y - instructions.get_screen_position().y)
 
 func hud_in(val: bool) -> Signal:
 	var tween = create_tween()
-	tween.tween_property(hud, "position", hud_out_of_bounds_position if val else hud_initial_position, 0.0)
+	hud.position = hud_out_of_bounds_position if val else hud_initial_position
 	tween.tween_property(hud, "position", hud_initial_position if val else hud_out_of_bounds_position, 0.3)
 	return tween.finished
 
 func instructions_in(val: bool) -> Signal:
 	var tween = create_tween()
-	tween.tween_property(instructions, "position", instructions_out_of_bounds_position if val else instructions_initial_position, 0.0)
+	instructions.position = instructions_out_of_bounds_position if val else instructions_initial_position
 	tween.tween_property(instructions, "position", instructions_initial_position if val else instructions_out_of_bounds_position, 0.3)
 	return tween.finished
 
