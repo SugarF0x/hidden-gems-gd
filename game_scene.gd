@@ -3,7 +3,7 @@ extends MarginContainer
 
 @onready var hud: Hud = $Hud
 @onready var instructions: Instructions = $Instructions
-@onready var grid: GemGrid = $Grid
+@onready var grid: GemGrid = $GridContainer/Grid
 
 var gem_count: int = 3
 
@@ -72,7 +72,6 @@ func hud_in(val: bool) -> Signal:
 	tween.tween_property(hud, "position", hud_initial_position if val else hud_out_of_bounds_position, 0.3)
 	return tween.finished
 
-# TODO: fix auto repositioning on grid_redraw, perhaps set the out-of-bounds position as initial? question mark?
 func instructions_in(val: bool) -> Signal:
 	var tween = create_tween()
 	tween.tween_property(instructions, "position", instructions_out_of_bounds_position if val else instructions_initial_position, 0.0)
