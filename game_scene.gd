@@ -1,9 +1,10 @@
 @tool
-extends MarginContainer
+class_name GameScene extends Control
 
-@onready var hud: Hud = $Container/Hud
-@onready var instructions: Instructions = $Container/Instructions
-@onready var grid: GemGrid = $Container/Grid
+@onready var hud: Hud = %Hud
+@onready var grid: GemGrid = %Grid
+@onready var instructions: Instructions = %Instructions
+@onready var answer_overlay: AnswerOverlay = %AnswerOverlay
 
 var gem_count: int = 3
 
@@ -44,14 +45,25 @@ func start_round() -> void:
 
 func finish_round() -> void:
 	grid.disable_gems()
+	
+	var is_correct = true
 	for index in grid.gems.size():
 		var gem = grid.gems[index]
 		if index not in grid.correct_gem_indexes: continue
-		if gem.state == Gem.BackgroundState.HIDDEN: gem.state = Gem.BackgroundState.MISSED if index in grid.correct_gem_indexes else Gem.BackgroundState.EMPTY
+		if gem.state == Gem.BackgroundState.HIDDEN: 
+			gem.state = Gem.BackgroundState.MISSED if index in grid.correct_gem_indexes else Gem.BackgroundState.EMPTY
+			if gem.state == Gem.BackgroundState.MISSED: is_correct = false
 	
-	await get_tree().create_timer(2.0).timeout
+	if not is_correct: await get_tree().create_timer(1.0).timeout
+	
+	answer_overlay.set_state(is_correct)
+	answer_overlay.fade(false)
 	await instructions_in(false)
+	
+	await get_tree().create_timer(0.5).timeout
+	answer_overlay.fade(true)
 	await grid.fade(true)
+	
 	grid.redraw_grid()
 	hud.current_round += 1
 	hud.score += 100

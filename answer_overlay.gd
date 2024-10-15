@@ -16,6 +16,7 @@ const STATE_TO_TEXTURE_MAP = {
 	AnswerOverlayState.WRONG: preload("res://assets/badges/wrong-answer.svg"),
 }
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var panel: Panel = $Panel
 @onready var texture_rect: TextureRect = $Panel/TextureRect
 
@@ -25,7 +26,8 @@ const STATE_TO_TEXTURE_MAP = {
 		sync_bg_color()
 		sync_icon()
 
-# Called when the node enters the scene tree for the first time.
+func set_state(is_correct: bool) -> void: state = AnswerOverlayState.CORRECT if is_correct else AnswerOverlayState.WRONG
+
 func _ready() -> void:
 	sync_bg_color()
 	sync_icon()
@@ -38,3 +40,12 @@ func sync_bg_color() -> void:
 func sync_icon() -> void:
 	if not texture_rect: return
 	texture_rect.texture = STATE_TO_TEXTURE_MAP[state]
+
+func fade(value: bool) -> Signal:
+	if value: 
+		animation_player.play('fade')
+		animation_player.animation_finished.connect(func(name: String): visible = false, ConnectFlags.CONNECT_ONE_SHOT)
+	else: 
+		visible = true
+		animation_player.play_backwards('fade')
+	return animation_player.animation_finished

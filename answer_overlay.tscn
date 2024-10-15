@@ -1,10 +1,72 @@
-[gd_scene load_steps=4 format=3 uid="uid://bumcnypfdkq4e"]
+[gd_scene load_steps=7 format=3 uid="uid://bumcnypfdkq4e"]
 
 [ext_resource type="Script" path="res://answer_overlay.gd" id="1_d672a"]
-[ext_resource type="Texture2D" uid="uid://6ewa25y3v2lh" path="res://assets/badges/wrong-answer.svg" id="2_f0qbl"]
+[ext_resource type="Texture2D" uid="uid://kj0tj6jpgw0y" path="res://assets/badges/correct-answer.svg" id="2_8mv3g"]
+
+[sub_resource type="Animation" id="Animation_bfes3"]
+resource_name = "fade"
+length = 0.3
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/TextureRect:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_cnqme"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/TextureRect:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tlpxg"]
+_data = {
+"RESET": SubResource("Animation_cnqme"),
+"fade": SubResource("Animation_bfes3")
+}
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e48iw"]
-bg_color = Color(0.847059, 0.286275, 0.294118, 0.301961)
+bg_color = Color(0.34902, 0.678431, 0.423529, 0.301961)
 
 [node name="AnswerOverlay" type="Control"]
 layout_mode = 3
@@ -14,7 +76,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_d672a")
-state = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tlpxg")
+}
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -38,4 +104,5 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_f0qbl")
+pivot_offset = Vector2(55, 62)
+texture = ExtResource("2_8mv3g")

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://gem.gd" id="1_e1ali"]
 [ext_resource type="Texture2D" uid="uid://dpgew03covbjf" path="res://assets/backgrounds/found.svg" id="2_p743g"]
-[ext_resource type="Texture2D" uid="uid://bjqps6o0sqyr6" path="res://assets/gems/4.svg" id="3_2ofju"]
+[ext_resource type="Texture2D" uid="uid://c7c8fmrpa0hxy" path="res://assets/gems/1.svg" id="3_exy2r"]
 
 [sub_resource type="Animation" id="Animation_et3wj"]
 length = 0.001
@@ -106,7 +106,7 @@ offset_right = 34.5
 offset_bottom = 34.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_2ofju")
+texture = ExtResource("3_exy2r")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
