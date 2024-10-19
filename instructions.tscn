@@ -14,7 +14,7 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="Instructions" type="PanelContainer"]
+[node name="Instructions" type="PanelContainer" node_paths=PackedStringArray("game_context")]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 39.0
@@ -22,6 +22,7 @@ grow_horizontal = 2
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_0je3t")
 script = ExtResource("1_nmppw")
+game_context = NodePath("")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

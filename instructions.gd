@@ -4,6 +4,8 @@ extends PanelContainer
 
 @onready var label: Label = $MarginContainer/Label
 
+@export var game_context: HGGameContext
+
 @export var text: String = "sample instructions text":
 	set(value): 
 		text = value
@@ -14,4 +16,4 @@ func _ready():
 
 func update_label():
 	if not label: return
-	if label.text != text: label.text = text
+	label.text = text

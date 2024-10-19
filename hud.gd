@@ -5,6 +5,12 @@ extends PanelContainer
 @onready var round_label: Label = %RoundLabel
 @onready var score_label: Label = %ScoreLabel
 
+@export var game_context: HGGameContext:
+	set(value):
+		if game_context: return
+		game_context = value
+		setup_context_sync()
+
 @export var current_round: int = 1:
 	set(value):
 		current_round = value
@@ -21,8 +27,25 @@ extends PanelContainer
 		update_score_label()
 
 func _ready():
+	setup_context_sync()
 	update_round_label()
 	update_score_label()
+
+func setup_context_sync() -> void:
+	if not game_context: return
+	
+	game_context.score_changed.connect(on_context_score_changed)
+	on_context_score_changed(game_context.score)
+	
+	game_context.stage_current_changed.connect(on_context_stage_current_changed)
+	on_context_stage_current_changed(game_context.stage_current)
+	
+	game_context.stage_total_changed.connect(on_context_stage_total_changed)
+	on_context_stage_total_changed(game_context.stage_total)
+
+func on_context_score_changed(to: int) -> void: score = to
+func on_context_stage_current_changed(to: int) -> void: current_round = to
+func on_context_stage_total_changed(to: int) -> void: total_rounds = to
 
 func update_round_label():
 	if not round_label: return

@@ -6,10 +6,19 @@ class_name GameScene extends Control
 @onready var instructions: Instructions = %Instructions
 @onready var answer_overlay: AnswerOverlay = %AnswerOverlay
 
+@export var game_context: HGGameContext = HGGameContext.new()
+
 var gem_count: int = 3
 
 func _ready() -> void:
+	drill_context()
 	setup()
+
+func drill_context() -> void:
+	hud.game_context = game_context
+	grid.game_context = game_context
+	instructions.game_context = game_context
+	answer_overlay.game_context = game_context
 
 func set_starting_node_properties():
 	grid.modulate.a = 0
@@ -65,8 +74,7 @@ func finish_round() -> void:
 	await grid.fade(true)
 	
 	grid.redraw_grid()
-	hud.current_round += 1
-	hud.score += 100
+	game_context.next_stage()
 	start_round()
 
 func randomize_gem_indexes() -> void:

@@ -76,7 +76,7 @@ _data = {
 "fade": SubResource("Animation_81cst")
 }
 
-[node name="GemGrid" type="PanelContainer"]
+[node name="GemGrid" type="PanelContainer" node_paths=PackedStringArray("game_context")]
 offset_right = 110.0
 offset_bottom = 110.0
 pivot_offset = Vector2(107, 159)
@@ -84,6 +84,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_qrr8x")
 script = ExtResource("1_g6546")
+game_context = NodePath("")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

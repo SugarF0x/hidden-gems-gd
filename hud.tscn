@@ -29,7 +29,7 @@ corner_radius_top_right = 28
 corner_radius_bottom_right = 28
 corner_radius_bottom_left = 28
 
-[node name="Hud" type="PanelContainer"]
+[node name="Hud" type="PanelContainer" node_paths=PackedStringArray("game_context")]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 58.0
@@ -38,6 +38,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_plhih")
 script = ExtResource("1_o4mxl")
+game_context = NodePath("")
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(0, 36)
