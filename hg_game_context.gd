@@ -16,6 +16,8 @@ func next_stage() -> void:
 	score_changed.emit(score)
 
 func inject_state(node: Node) -> void:
+	node.child_entered_tree.connect(inject_state)
+	
 	for child in node.get_children():
 		if 'game_context' in child and child.game_context == null: 
 			child.game_context = self
