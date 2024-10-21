@@ -6,19 +6,18 @@ class_name GameScene extends Control
 @onready var instructions: Instructions = %Instructions
 @onready var answer_overlay: AnswerOverlay = %AnswerOverlay
 
-@export var game_context: HGGameContext = HGGameContext.new()
+@export var game_context: HGGameContext
 
 var gem_count: int = 3
 
 func _ready() -> void:
-	drill_context()
+	provide_context()
 	setup()
 
-func drill_context() -> void:
-	hud.game_context = game_context
-	grid.game_context = game_context
-	instructions.game_context = game_context
-	answer_overlay.game_context = game_context
+func provide_context() -> void:
+	if not is_node_ready(): return
+	if not game_context: return
+	game_context.inject_state(self)
 
 func set_starting_node_properties():
 	grid.modulate.a = 0

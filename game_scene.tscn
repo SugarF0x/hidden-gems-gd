@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://rhrcaxbp0wpy" path="res://grid.tscn" id="3_545e7"]
 [ext_resource type="PackedScene" uid="uid://bumcnypfdkq4e" path="res://answer_overlay.tscn" id="5_spy8v"]
 
-[node name="GameScene" type="Control"]
+[node name="GameScene" type="Control" node_paths=PackedStringArray("game_context")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,6 +14,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3pe30")
+game_context = NodePath("")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -31,12 +32,13 @@ theme_override_constants/margin_bottom = 60
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Hud" parent="MarginContainer/Container" instance=ExtResource("1_7lggq")]
+[node name="Hud" parent="MarginContainer/Container" node_paths=PackedStringArray("game_context") instance=ExtResource("1_7lggq")]
 unique_name_in_owner = true
 layout_mode = 1
 size_flags_vertical = 0
+game_context = NodePath("")
 
-[node name="Grid" parent="MarginContainer/Container" instance=ExtResource("3_545e7")]
+[node name="Grid" parent="MarginContainer/Container" node_paths=PackedStringArray("game_context") instance=ExtResource("3_545e7")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -53,10 +55,11 @@ grow_vertical = 2
 pivot_offset = Vector2(159, 159)
 size_flags_horizontal = 4
 size_flags_vertical = 4
+game_context = NodePath("")
 width = 3
-correct_gem_indexes = Array[int]([3, 7, 4])
+correct_gem_indexes = Array[int]([7, 5, 3])
 
-[node name="Instructions" parent="MarginContainer/Container" instance=ExtResource("2_fu5pw")]
+[node name="Instructions" parent="MarginContainer/Container" node_paths=PackedStringArray("game_context") instance=ExtResource("2_fu5pw")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 12
@@ -65,8 +68,10 @@ anchor_bottom = 1.0
 offset_top = -41.0
 offset_bottom = 0.0
 grow_vertical = 0
+game_context = NodePath("")
 
-[node name="AnswerOverlay" parent="." instance=ExtResource("5_spy8v")]
+[node name="AnswerOverlay" parent="." node_paths=PackedStringArray("game_context") instance=ExtResource("5_spy8v")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
+game_context = NodePath("")
