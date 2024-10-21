@@ -15,6 +15,7 @@ func _ready() -> void:
 	setup()
 
 func provide_context() -> void:
+	if Engine.is_editor_hint(): return
 	if not is_node_ready(): return
 	if not game_context: return
 	game_context.inject_state(self)

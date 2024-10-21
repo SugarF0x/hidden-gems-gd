@@ -32,16 +32,19 @@ func _ready():
 	update_score_label()
 
 func setup_context_sync() -> void:
+	if not is_node_ready(): return
 	if not game_context: return
 	
-	game_context.score_changed.connect(on_context_score_changed)
+	setup_context_connections()
 	on_context_score_changed(game_context.score)
-	
-	game_context.stage_current_changed.connect(on_context_stage_current_changed)
 	on_context_stage_current_changed(game_context.stage_current)
-	
-	game_context.stage_total_changed.connect(on_context_stage_total_changed)
 	on_context_stage_total_changed(game_context.stage_total)
+
+func setup_context_connections() -> void:
+	if Engine.is_editor_hint(): return
+	game_context.stage_total_changed.connect(on_context_stage_total_changed)
+	game_context.stage_current_changed.connect(on_context_stage_current_changed)
+	game_context.score_changed.connect(on_context_score_changed)
 
 func on_context_score_changed(to: int) -> void: score = to
 func on_context_stage_current_changed(to: int) -> void: current_round = to
