@@ -1,4 +1,4 @@
-class_name HGGameContext extends Node
+class_name GameContext extends Resource
 
 @export var stage_current: int = 1
 @export var stage_total: int = 10
@@ -14,12 +14,3 @@ func next_stage() -> void:
 	
 	stage_current_changed.emit(stage_current)
 	score_changed.emit(score)
-
-func inject_state(node: Node) -> void:
-	node.child_entered_tree.connect(inject_state)
-	
-	for child in node.get_children():
-		if 'game_context' in child and child.game_context == null: 
-			child.game_context = self
-			print("context injected into ", child.name)
-		inject_state(child)

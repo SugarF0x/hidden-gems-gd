@@ -5,12 +5,6 @@ extends PanelContainer
 @onready var round_label: Label = %RoundLabel
 @onready var score_label: Label = %ScoreLabel
 
-@export var game_context: HGGameContext:
-	set(value):
-		if game_context: return
-		game_context = value
-		setup_context_sync()
-
 @export var current_round: int = 1:
 	set(value):
 		current_round = value
@@ -25,6 +19,8 @@ extends PanelContainer
 	set(value):
 		score = value
 		update_score_label()
+
+var game_context: GameContext = preload("res://game_context.tres")
 
 func _ready():
 	setup_context_sync()

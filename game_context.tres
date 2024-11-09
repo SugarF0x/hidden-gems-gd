@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bpmbig0e31c6v"]
+
+[ext_resource type="Script" path="res://game_context.gd" id="1_7abxw"]
+
+[resource]
+script = ExtResource("1_7abxw")
+stage_current = 1
+stage_total = 10
+score = 0

@@ -20,8 +20,6 @@ const STATE_TO_TEXTURE_MAP = {
 @onready var panel: Panel = $Panel
 @onready var texture_rect: TextureRect = $Panel/TextureRect
 
-@export var game_context: HGGameContext
-
 @export var state: AnswerOverlayState = AnswerOverlayState.CORRECT:
 	set(value):
 		state = value

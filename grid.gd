@@ -7,8 +7,6 @@ var gem_scene: PackedScene = load("res://gem.tscn")
 @onready var grid_container: GridContainer = $MarginContainer/GridContainer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-@export var game_context: HGGameContext
-
 @export var width: int = 2:
 	set(value):
 		width = value
