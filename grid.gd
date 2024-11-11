@@ -1,7 +1,7 @@
 @tool
 class_name GemGrid extends PanelContainer
 
-var gem_scene: PackedScene = load("res://gem.tscn")
+var gem_scene: PackedScene = preload("res://gem.tscn")
 
 @onready var grid_container: GridContainer = $MarginContainer/GridContainer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer

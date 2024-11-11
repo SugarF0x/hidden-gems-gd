@@ -1,6 +1,5 @@
 @tool
-class_name Gem
-extends Control
+class_name Gem extends Control
 
 const ICONS_PATH := "res://assets/gems"
 const SIZE := 100
@@ -48,15 +47,15 @@ func _ready() -> void:
 	_editor_on_ready()
 
 func set_random_gem_icon() -> void:
-	var dir = DirAccess.open(ICONS_PATH)
+	var dir: DirAccess = DirAccess.open(ICONS_PATH)
 	if not dir:
 		assert(false, "Failed to open dir at: " + ICONS_PATH)
 		return
 	
-	var svg_files = []
+	var svg_files: Array[Variant] = []
 	
 	dir.list_dir_begin()
-	var file_name = dir.get_next()
+	var file_name: String = dir.get_next()
 	
 	while file_name != "":
 		if file_name.ends_with(".svg"): svg_files.append(file_name)
@@ -68,7 +67,7 @@ func set_random_gem_icon() -> void:
 		assert(false, "SVG list is empty")
 		return
 	
-	var random_index = randi() % svg_files.size()
+	var random_index: int = randi() % svg_files.size()
 	selected_icon = load(ICONS_PATH + "/" + svg_files[random_index])
 
 func set_controls_node_size() -> void:

@@ -1,6 +1,5 @@
 @tool
-class_name Hud
-extends PanelContainer
+class_name Hud extends PanelContainer
 
 @onready var round_label: Label = %RoundLabel
 @onready var score_label: Label = %ScoreLabel
