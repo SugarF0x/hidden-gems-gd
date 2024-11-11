@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bpmbig0e31c6v"]
+[gd_resource type="Resource" script_class="GameContext" load_steps=2 format=3 uid="uid://bpmbig0e31c6v"]
 
 [ext_resource type="Script" path="res://game_context.gd" id="1_7abxw"]
 
