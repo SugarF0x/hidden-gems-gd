@@ -1,4 +1,3 @@
-@tool
 class_name Gem extends Control
 
 const ICONS_PATH := "res://assets/gems"
@@ -51,22 +50,22 @@ func set_random_gem_icon() -> void:
 	if not dir:
 		assert(false, "Failed to open dir at: " + ICONS_PATH)
 		return
-	
+
 	var svg_files: Array[Variant] = []
-	
+
 	dir.list_dir_begin()
 	var file_name: String = dir.get_next()
-	
+
 	while file_name != "":
 		if file_name.ends_with(".svg"): svg_files.append(file_name)
 		file_name = dir.get_next()
-	
+
 	dir.list_dir_end()
-	
+
 	if (svg_files.size() == 0):
 		assert(false, "SVG list is empty")
 		return
-	
+
 	var random_index: int = randi() % svg_files.size()
 	selected_icon = load(ICONS_PATH + "/" + svg_files[random_index])
 
@@ -106,9 +105,9 @@ signal gem_clicked
 func on_gem_clicked(): if not disabled: gem_clicked.emit()
 
 var _is_pressed: bool = false
-func on_press_down(): if not disabled: 
+func on_press_down(): if not disabled:
 	_is_pressed = true
 	play_press(true)
-func on_press_up(): if not disabled || _is_pressed: 
+func on_press_up(): if not disabled || _is_pressed:
 	_is_pressed = false
 	play_press(false)
