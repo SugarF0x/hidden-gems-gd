@@ -32,9 +32,9 @@ func setup_context_sync() -> void:
 	if not game_context: return
 	
 	setup_context_connections()
-	on_context_score_changed(game_context.score)
-	on_context_stage_current_changed(game_context.stage_current)
-	on_context_stage_total_changed(game_context.stage_total)
+	on_context_score_changed(game_context.score, 0)
+	on_context_stage_current_changed(game_context.stage_current, 0)
+	on_context_stage_total_changed(game_context.stage_total, 0)
 
 func setup_context_connections() -> void:
 	if Engine.is_editor_hint(): return
@@ -42,9 +42,9 @@ func setup_context_connections() -> void:
 	game_context.stage_current_changed.connect(on_context_stage_current_changed)
 	game_context.score_changed.connect(on_context_score_changed)
 
-func on_context_score_changed(to: int) -> void: score = to
-func on_context_stage_current_changed(to: int) -> void: current_round = to
-func on_context_stage_total_changed(to: int) -> void: total_rounds = to
+func on_context_score_changed(to: int, _from: int) -> void: score = to
+func on_context_stage_current_changed(to: int, _from: int) -> void: current_round = to
+func on_context_stage_total_changed(to: int, _from: int) -> void: total_rounds = to
 
 func update_round_label() -> void:
 	if not round_label: return
