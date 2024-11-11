@@ -13,7 +13,7 @@ enum BackgroundState {
 	WRONG
 }
 
-const BACKGROUND_IMAGES = {
+const BACKGROUND_IMAGES: Dictionary = {
 	BackgroundState.EMPTY: preload("res://assets/backgrounds/empty.svg"),
 	BackgroundState.FOUND: preload("res://assets/backgrounds/found.svg"),
 	BackgroundState.HIDDEN: preload("res://assets/backgrounds/hidden.svg"),

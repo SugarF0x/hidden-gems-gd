@@ -1,6 +1,5 @@
 @tool
-class_name GemGrid
-extends PanelContainer
+class_name GemGrid extends PanelContainer
 
 var gem_scene: PackedScene = load("res://gem.tscn")
 
@@ -70,11 +69,11 @@ func fade(value: bool) -> Signal:
 	
 	animation_player.play_backwards("fade")
 	
-	var gem_animation_pool = gems.duplicate()
+	var gem_animation_pool: Array[Gem] = gems.duplicate()
 	gem_animation_pool.shuffle()
 	
 	for gem_index in gem_animation_pool.size(): 
-		var gem = gem_animation_pool[gem_index] as Gem
+		var gem: Gem = gem_animation_pool[gem_index]
 		gem.set_opacity(0.0)
 		call_with_delay(gem.fade.bind(false), .05 * gem_index)
 	

@@ -18,9 +18,9 @@ func set_starting_node_properties():
 	hud.position = hud_out_of_bounds_position
 
 func setup() -> void:
-	call_deferred('setup_layout')
+	setup_layout.call_deferred()
 	grid.gem_clicked.connect(on_gem_pressed)
-	if not Engine.is_editor_hint(): call_deferred('initial_transition')
+	if not Engine.is_editor_hint(): initial_transition.call_deferred()
 	else: randomize_gem_indexes()
 
 func setup_layout() -> void:
@@ -47,9 +47,9 @@ func start_round() -> void:
 func finish_round() -> void:
 	grid.disable_gems()
 	
-	var is_correct = true
+	var is_correct: bool = true
 	for index in grid.gems.size():
-		var gem = grid.gems[index]
+		var gem: Gem = grid.gems[index]
 		if index not in grid.correct_gem_indexes: continue
 		if gem.state == Gem.BackgroundState.HIDDEN: 
 			gem.state = Gem.BackgroundState.MISSED if index in grid.correct_gem_indexes else Gem.BackgroundState.EMPTY
@@ -88,13 +88,13 @@ func set_instructions_target_positions() -> void:
 	instructions_out_of_bounds_position = Vector2(instructions_initial_position.x, instructions.position.y + DisplayServer.window_get_size().y - instructions.get_screen_position().y)
 
 func hud_in(val: bool) -> Signal:
-	var tween = create_tween()
+	var tween: Tween = create_tween()
 	hud.position = hud_out_of_bounds_position if val else hud_initial_position
 	tween.tween_property(hud, "position", hud_initial_position if val else hud_out_of_bounds_position, 0.3)
 	return tween.finished
 
 func instructions_in(val: bool) -> Signal:
-	var tween = create_tween()
+	var tween: Tween = create_tween()
 	instructions.position = instructions_out_of_bounds_position if val else instructions_initial_position
 	tween.tween_property(instructions, "position", instructions_initial_position if val else instructions_out_of_bounds_position, 0.3)
 	return tween.finished
@@ -102,7 +102,7 @@ func instructions_in(val: bool) -> Signal:
 var gems_revealed: int = 0
 func on_gem_pressed(index: int) -> void:
 	gems_revealed += 1
-	var gem = grid.gems[index]
+	var gem: Gem = grid.gems[index]
 	gem.state = Gem.BackgroundState.FOUND if index in grid.correct_gem_indexes else Gem.BackgroundState.WRONG
 	gem.disable()
 	if gems_revealed >= grid.correct_gem_indexes.size(): 

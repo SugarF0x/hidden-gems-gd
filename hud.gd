@@ -46,12 +46,12 @@ func on_context_score_changed(to: int) -> void: score = to
 func on_context_stage_current_changed(to: int) -> void: current_round = to
 func on_context_stage_total_changed(to: int) -> void: total_rounds = to
 
-func update_round_label():
+func update_round_label() -> void:
 	if not round_label: return
-	var new_value = "{current}/{total}".format({ "current": str(current_round), "total": str(total_rounds) })
+	var new_value: String = "{current}/{total}".format({ "current": str(current_round), "total": str(total_rounds) })
 	if round_label.text != new_value: round_label.text = new_value
 
-func update_score_label():
+func update_score_label() -> void:
 	if not score_label: return
 	if score_label.text != str(score): score_label.text = str(score)
 

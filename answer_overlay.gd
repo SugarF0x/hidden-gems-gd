@@ -6,12 +6,12 @@ enum AnswerOverlayState {
 	WRONG,
 }
 
-const STATE_TO_COLOR_MAP = {
+const STATE_TO_COLOR_MAP: Dictionary = {
 	AnswerOverlayState.CORRECT: 0x59AD6C4D,
 	AnswerOverlayState.WRONG: 0xD8494B4D,
 }
 
-const STATE_TO_TEXTURE_MAP = {
+const STATE_TO_TEXTURE_MAP: Dictionary = {
 	AnswerOverlayState.CORRECT: preload("res://assets/badges/correct-answer.svg"),
 	AnswerOverlayState.WRONG: preload("res://assets/badges/wrong-answer.svg"),
 }
@@ -44,7 +44,7 @@ func sync_icon() -> void:
 func fade(value: bool) -> Signal:
 	if value: 
 		animation_player.play('fade')
-		animation_player.animation_finished.connect(func(name: String): visible = false, ConnectFlags.CONNECT_ONE_SHOT)
+		animation_player.animation_finished.connect(func(_name: String): visible = false, ConnectFlags.CONNECT_ONE_SHOT)
 	else: 
 		visible = true
 		animation_player.play_backwards('fade')
