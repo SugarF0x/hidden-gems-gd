@@ -51,7 +51,7 @@ func set_tile_size(value: int) -> void:
 func _ready() -> void:
 	connect_button_signals()
 
-func set_random_gem_icon() -> void:
+func randomize_icon() -> void:
 	var dir: DirAccess = DirAccess.open(ICONS_PATH)
 	if not dir:
 		assert(false, "Failed to open dir at: " + ICONS_PATH)
@@ -102,11 +102,6 @@ func fade(value: bool) -> Signal:
 	else: animation_player.play_backwards("fade")
 	return animation_player.animation_finished
 
-func play_press(value: bool) -> Signal:
-	if value: animation_player.play("press")
-	else: animation_player.play_backwards("press")
-	return animation_player.animation_finished
-
 #region press handling	
 
 func connect_button_signals() -> void:
@@ -120,6 +115,11 @@ func enable() -> void: disabled = false
 
 signal gem_clicked
 func on_gem_clicked(): if not disabled: gem_clicked.emit()
+
+func play_press(value: bool) -> Signal:
+	if value: animation_player.play("press")
+	else: animation_player.play_backwards("press")
+	return animation_player.animation_finished
 
 var _is_pressed: bool = false
 func on_press_down():
