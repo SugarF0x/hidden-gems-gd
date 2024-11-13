@@ -1,60 +1,72 @@
 @tool
 class_name GemGrid extends PanelContainer
 
+# TODO: expand size upto a certain maximum, get size, get size for each gem, assign size to gems
+
+#region static
+
 var gem_scene: PackedScene = preload("res://gem.tscn")
 
 @onready var grid_container: GridContainer = $MarginContainer/GridContainer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-@export var width: int = 2:
-	set(value):
-		width = value
-		sync_grid_size()
-		redraw_grid()
+#endregion
+#region properties
 
-@export var height: int = 3:
-	set(value):
-		height = value
-		sync_grid_size()
-		redraw_grid()
+@export var grid_size: Vector2i = Vector2i(2,3) : set = set_grid_size
+@export var gems_revealed: bool = false : set = set_gems_revealed
+@export var correct_gem_indexes: Array[int] = [0, 3] : set = set_correct_gem_indexes
+
+func set_grid_size(value: Vector2i) -> void:
+	grid_size = value
+	update_grid_columns_count()
+	redraw_grid()
+
+func set_gems_revealed(value: bool) -> void:
+	gems_revealed = value
+	if Engine.is_editor_hint(): reveal_gems(value)
+
+func set_correct_gem_indexes(value: Array[int]) -> void:
+		correct_gem_indexes = value
+		if Engine.is_editor_hint(): reveal_gems(gems_revealed)
+
+#endregion
 
 var gems: Array[Gem] = []
-@export var correct_gem_indexes: Array[int] = [0, 3]:
-	set(value):
-		correct_gem_indexes = value
-		if Engine.is_editor_hint(): reveal_gems()
-
 signal gem_clicked(index: int)
 
 func _ready() -> void:
-	sync_grid_size()
+	update_grid_columns_count()
 	redraw_grid()
 	resized.connect(func(): pivot_offset = get_size() / 2)
 
-func sync_grid_size() -> void:
-	if not grid_container: return
-	grid_container.columns = width
+func update_grid_columns_count() -> void:
+	if not is_node_ready(): return
+	grid_container.columns = grid_size.x
 
 func redraw_grid() -> void:
-	if not grid_container: return
+	if not is_node_ready(): return
 	
 	for child in grid_container.get_children(): child.queue_free()
 	gems.clear()
 	
-	for n in (height * width):
-		var item := gem_scene.instantiate() as Gem
+	for n in (grid_size.x * grid_size.y):
+		var item = gem_scene.instantiate() as Gem
 		grid_container.add_child(item)
 		gems.append(item)
-		item.gem_clicked.connect(gem_clicked.emit.bind(n))
 		
-	if Engine.is_editor_hint(): reveal_gems()
+		item.gem_clicked.connect(gem_clicked.emit.bind(n))
+		item.randomize_icon()
+		
+	if Engine.is_editor_hint(): reveal_gems(gems_revealed)
 
-func reveal_gems() -> void:
+func reveal_gems(value: bool = true) -> void:
 	for index in gems.size(): 
 		var gem = gems[index]
-		gem.state = Gem.BackgroundState.FOUND if index in correct_gem_indexes else Gem.BackgroundState.EMPTY
+		if value: gem.state = Gem.BackgroundState.FOUND if index in correct_gem_indexes else Gem.BackgroundState.EMPTY
+		else: gem.state = Gem.BackgroundState.HIDDEN
 
-func hide_gems() -> void: for gem in gems: gem.state = Gem.BackgroundState.HIDDEN 
+func hide_gems() -> void: reveal_gems(false)
 func disable_gems() -> void: for gem in gems: gem.disable()
 func enable_gems() -> void: for gem in gems: gem.enable()
 
