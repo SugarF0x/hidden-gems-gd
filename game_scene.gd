@@ -1,12 +1,17 @@
 @tool
 class_name GameScene extends Control
 
+#region static
+
 @onready var hud: Hud = %Hud
 @onready var grid: GemGrid = %Grid
 @onready var instructions: Instructions = %Instructions
 @onready var answer_overlay: AnswerOverlay = %AnswerOverlay
 
 var game_context: GameContext = preload("res://game_context.tres")
+
+#endregion
+
 var gem_count: int = 3
 
 func _ready() -> void:
@@ -71,7 +76,7 @@ func finish_round() -> void:
 
 func randomize_gem_indexes() -> void:
 	var pool: Array[int] = []
-	for i in range(grid.width * grid.height): pool.append(i)
+	for i in range(grid.grid_size.x * grid.grid_size.y): pool.append(i)
 	pool.shuffle()
 	grid.correct_gem_indexes = pool.slice(0, gem_count)
 
