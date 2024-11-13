@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://56q1v0fgl0yi"]
 
 [ext_resource type="Script" path="res://gem.gd" id="1_e1ali"]
-[ext_resource type="Texture2D" uid="uid://dpgew03covbjf" path="res://assets/backgrounds/found.svg" id="2_p743g"]
-[ext_resource type="Texture2D" uid="uid://xxk4vwn1128n" path="res://assets/gems/2.svg" id="3_aihw5"]
+[ext_resource type="Texture2D" uid="uid://fseeopolpjm6" path="res://assets/backgrounds/hidden.svg" id="2_7w80m"]
+[ext_resource type="Texture2D" uid="uid://c7c8fmrpa0hxy" path="res://assets/gems/1.svg" id="3_ct0j7"]
 
 [sub_resource type="Animation" id="Animation_et3wj"]
 length = 0.001
@@ -80,7 +80,6 @@ offset_right = 69.0
 offset_bottom = 68.0
 pivot_offset = Vector2(50, 50)
 script = ExtResource("1_e1ali")
-state = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -88,25 +87,23 @@ libraries = {
 }
 
 [node name="BackgroundTextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("2_p743g")
-
-[node name="GemTextureRect" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -34.5
-offset_top = -34.0
-offset_right = 34.5
-offset_bottom = 34.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_aihw5")
+texture = ExtResource("2_7w80m")
+
+[node name="GemTextureRect" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 15.5
+offset_top = 16.0
+offset_right = 84.5
+offset_bottom = 84.0
+pivot_offset = Vector2(75.9, 74.8)
+texture = ExtResource("3_ct0j7")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
@@ -118,7 +115,3 @@ grow_vertical = 2
 focus_mode = 0
 theme_type_variation = &"FlatButton"
 flat = true
-
-[connection signal="button_down" from="Button" to="." method="on_press_down"]
-[connection signal="button_up" from="Button" to="." method="on_press_up"]
-[connection signal="pressed" from="Button" to="." method="on_gem_clicked"]
