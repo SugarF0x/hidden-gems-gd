@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://56q1v0fgl0yi"]
 
 [ext_resource type="Script" path="res://gem.gd" id="1_e1ali"]
-[ext_resource type="Texture2D" uid="uid://fseeopolpjm6" path="res://assets/backgrounds/hidden.svg" id="2_7w80m"]
+[ext_resource type="Texture2D" uid="uid://dpgew03covbjf" path="res://assets/backgrounds/found.svg" id="2_rlnx1"]
 [ext_resource type="Texture2D" uid="uid://c7c8fmrpa0hxy" path="res://assets/gems/1.svg" id="3_ct0j7"]
 
 [sub_resource type="Animation" id="Animation_et3wj"]
@@ -73,12 +73,14 @@ _data = {
 }
 
 [node name="Gem" type="Control"]
+custom_minimum_size = Vector2(84, 84)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 84.0
 offset_bottom = 84.0
 pivot_offset = Vector2(42, 42)
 script = ExtResource("1_e1ali")
+state = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -92,19 +94,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_7w80m")
-expand_mode = 3
+texture = ExtResource("2_rlnx1")
+expand_mode = 1
 
 [node name="GemTextureRect" type="TextureRect" parent="."]
-visible = false
 layout_mode = 0
 offset_left = 13.02
 offset_top = 13.44
 offset_right = 70.98
 offset_bottom = 70.56
-pivot_offset = Vector2(75.9, 74.8)
 texture = ExtResource("3_ct0j7")
-expand_mode = 3
+expand_mode = 1
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
