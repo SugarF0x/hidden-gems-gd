@@ -28,8 +28,8 @@ func set_gems_revealed(value: bool) -> void:
 	
 	for index in gems.size(): 
 		var gem = gems[index]
-		if value: gem.state = Gem.BackgroundState.FOUND if index in correct_gem_indexes else Gem.BackgroundState.EMPTY
-		else: gem.state = Gem.BackgroundState.HIDDEN
+		if value: gem.state = Gem.GemState.FOUND if index in correct_gem_indexes else Gem.GemState.EMPTY
+		else: gem.state = Gem.GemState.HIDDEN
 
 func set_correct_gem_indexes(value: Array[int]) -> void:
 		correct_gem_indexes = value

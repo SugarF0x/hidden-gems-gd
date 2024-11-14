@@ -56,9 +56,9 @@ func finish_round() -> void:
 	for index in grid.gems.size():
 		var gem: Gem = grid.gems[index]
 		if index not in grid.correct_gem_indexes: continue
-		if gem.state == Gem.BackgroundState.HIDDEN: 
-			gem.state = Gem.BackgroundState.MISSED if index in grid.correct_gem_indexes else Gem.BackgroundState.EMPTY
-			if gem.state == Gem.BackgroundState.MISSED: is_correct = false
+		if gem.state == Gem.GemState.HIDDEN: 
+			gem.state = Gem.GemState.MISSED if index in grid.correct_gem_indexes else Gem.GemState.EMPTY
+			if gem.state == Gem.GemState.MISSED: is_correct = false
 	
 	if not is_correct: await get_tree().create_timer(1.0).timeout
 	
@@ -108,7 +108,7 @@ var gems_revealed: int = 0
 func on_gem_pressed(index: int) -> void:
 	gems_revealed += 1
 	var gem: Gem = grid.gems[index]
-	gem.state = Gem.BackgroundState.FOUND if index in grid.correct_gem_indexes else Gem.BackgroundState.WRONG
+	gem.state = Gem.GemState.FOUND if index in grid.correct_gem_indexes else Gem.GemState.WRONG
 	gem.disable()
 	if gems_revealed >= grid.correct_gem_indexes.size(): 
 		gems_revealed = 0
