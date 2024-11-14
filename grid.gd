@@ -1,25 +1,29 @@
 @tool
-class_name GemGrid extends PanelContainer
-
-# TODO: expand size upto a certain maximum, get size, get size for each gem, assign size to gems
+class_name GemGrid extends Control
 
 #region static
 
 var gem_scene: PackedScene = preload("res://gem.tscn")
 
-@onready var grid_container: GridContainer = $MarginContainer/GridContainer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var panel: PanelContainer = $Panel
+@onready var margin_container: MarginContainer = $Panel/MarginContainer
+@onready var grid_container: GridContainer = $Panel/MarginContainer/GridContainer
 
 #endregion
 #region properties
 
 @export var grid_size: Vector2i = Vector2i(2,3) : set = set_grid_size
+# TODO: make this an actual state variable instead of purely debug one, also add selected_gem_indexes array too
 @export var gems_revealed: bool = false : set = set_gems_revealed
 @export var correct_gem_indexes: Array[int] = [0, 3] : set = set_correct_gem_indexes
+
+var tile_size: int = Gem.max_tile_size : set = set_tile_size
 
 func set_grid_size(value: Vector2i) -> void:
 	grid_size = value
 	update_grid_columns_count()
+	update_tile_size()
 	redraw_grid()
 
 func set_gems_revealed(value: bool) -> void:
@@ -30,6 +34,10 @@ func set_correct_gem_indexes(value: Array[int]) -> void:
 		correct_gem_indexes = value
 		if Engine.is_editor_hint(): reveal_gems(gems_revealed)
 
+func set_tile_size(value: int) -> void:
+	tile_size = min(Gem.max_tile_size, value)
+	for gem in gems: gem.tile_size = tile_size
+
 #endregion
 
 var gems: Array[Gem] = []
@@ -37,12 +45,20 @@ signal gem_clicked(index: int)
 
 func _ready() -> void:
 	update_grid_columns_count()
+	update_tile_size()
 	redraw_grid()
-	resized.connect(func(): pivot_offset = get_size() / 2)
+	panel.resized.connect(func(): panel.pivot_offset = panel.size / 2)
 
 func update_grid_columns_count() -> void:
 	if not is_node_ready(): return
 	grid_container.columns = grid_size.x
+
+func update_tile_size() -> void:
+	if not is_node_ready(): return
+	var gap = grid_container.get_theme_constant('h_separation')
+	var margin = margin_container.get_theme_constant('margin_left') + margin_container.get_theme_constant('margin_right')
+	var free_space = size.x - margin - gap * (grid_size.x - 1)
+	tile_size = free_space / grid_size.x
 
 func redraw_grid() -> void:
 	if not is_node_ready(): return
@@ -56,6 +72,7 @@ func redraw_grid() -> void:
 		gems.append(item)
 		
 		item.gem_clicked.connect(gem_clicked.emit.bind(n))
+		item.tile_size = tile_size
 		item.randomize_icon()
 		
 	if Engine.is_editor_hint(): reveal_gems(gems_revealed)
