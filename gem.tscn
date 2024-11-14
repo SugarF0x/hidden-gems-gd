@@ -73,11 +73,10 @@ _data = {
 }
 
 [node name="Gem" type="Control"]
-custom_minimum_size = Vector2(84, 84)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 69.0
-offset_bottom = 68.0
+offset_right = 84.0
+offset_bottom = 84.0
 pivot_offset = Vector2(42, 42)
 script = ExtResource("1_e1ali")
 

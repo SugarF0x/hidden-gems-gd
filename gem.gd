@@ -26,12 +26,14 @@ const BACKGROUND_IMAGES: Dictionary = {
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var button: Button = $Button
 
+const max_tile_size: int = 84
+
 #endregion
 #region properties
 
 @export var state: BackgroundState = BackgroundState.HIDDEN : set = set_state
 @export var icon: Texture2D = preload(ICONS_PATH + "/1.svg") : set = set_icon
-@export var tile_size: int = 84 : set = set_tile_size
+@export var tile_size: int = max_tile_size : set = set_tile_size
 
 func set_state(value: BackgroundState) -> void:
 	state = value
@@ -43,7 +45,7 @@ func set_icon(value: Texture2D) -> void:
 	update_gem_texture()
 
 func set_tile_size(value: int) -> void:
-	tile_size = value
+	tile_size = clampi(value, 0, max_tile_size)
 	update_node_sizes()
 
 #endregion
@@ -77,8 +79,8 @@ func randomize_icon() -> void:
 
 func update_node_sizes() -> void:
 	if not is_node_ready(): return
-	custom_minimum_size = Vector2(tile_size, tile_size)
-	pivot_offset = custom_minimum_size / 2
+	size = Vector2(tile_size, tile_size)
+	pivot_offset = size / 2
 	gem_texture_rect.size = Vector2(tile_size * .69, tile_size * .68)
 	gem_texture_rect.position = Vector2((tile_size * .31) / 2, (tile_size * .32) / 2)
 
