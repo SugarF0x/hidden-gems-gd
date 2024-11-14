@@ -14,7 +14,6 @@ var gem_scene: PackedScene = preload("res://gem.tscn")
 #region properties
 
 @export var grid_size: Vector2i = Vector2i(2,3) : set = set_grid_size
-# TODO: make this an actual state variable instead of purely debug one, also add selected_gem_indexes array too
 @export var gems_revealed: bool = false : set = set_gems_revealed
 @export var correct_gem_indexes: Array[int] = [0, 3] : set = set_correct_gem_indexes
 
@@ -26,11 +25,15 @@ func set_grid_size(value: Vector2i) -> void:
 
 func set_gems_revealed(value: bool) -> void:
 	gems_revealed = value
-	if Engine.is_editor_hint(): reveal_gems(value)
+	
+	for index in gems.size(): 
+		var gem = gems[index]
+		if value: gem.state = Gem.BackgroundState.FOUND if index in correct_gem_indexes else Gem.BackgroundState.EMPTY
+		else: gem.state = Gem.BackgroundState.HIDDEN
 
 func set_correct_gem_indexes(value: Array[int]) -> void:
 		correct_gem_indexes = value
-		if Engine.is_editor_hint(): reveal_gems(gems_revealed)
+		reveal_gems(gems_revealed)
 
 func set_tile_size(value: int) -> void:
 	tile_size = min(Gem.max_tile_size, value)
@@ -76,15 +79,10 @@ func redraw_grid() -> void:
 		item.tile_size = tile_size
 		item.randomize_icon()
 		
-	if Engine.is_editor_hint(): reveal_gems(gems_revealed)
+	reveal_gems(gems_revealed)
 
-func reveal_gems(value: bool = true) -> void:
-	for index in gems.size(): 
-		var gem = gems[index]
-		if value: gem.state = Gem.BackgroundState.FOUND if index in correct_gem_indexes else Gem.BackgroundState.EMPTY
-		else: gem.state = Gem.BackgroundState.HIDDEN
-
-func hide_gems() -> void: reveal_gems(false)
+func reveal_gems(value: bool = true) -> void: gems_revealed = true
+func hide_gems() -> void: gems_revealed = false
 func disable_gems() -> void: for gem in gems: gem.disable()
 func enable_gems() -> void: for gem in gems: gem.enable()
 
