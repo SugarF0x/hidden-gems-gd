@@ -31,7 +31,7 @@ const BACKGROUND_IMAGES: Dictionary = {
 
 @export var state: BackgroundState = BackgroundState.HIDDEN : set = set_state
 @export var icon: Texture2D = preload(ICONS_PATH + "/1.svg") : set = set_icon
-@export var tile_size: int = 100 : set = set_tile_size
+@export var tile_size: int = 84 : set = set_tile_size
 
 func set_state(value: BackgroundState) -> void:
 	state = value
