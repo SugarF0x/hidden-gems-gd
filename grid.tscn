@@ -86,7 +86,6 @@ grow_vertical = 2
 pivot_offset = Vector2(187.5, 406)
 script = ExtResource("1_g6546")
 gems_revealed = true
-correct_gem_indexes = Array[int]([0, 3, 4])
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Panel")

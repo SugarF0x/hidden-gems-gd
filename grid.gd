@@ -22,9 +22,7 @@ var tile_size: int = Gem.max_tile_size : set = set_tile_size
 
 func set_grid_size(value: Vector2i) -> void:
 	grid_size = value
-	update_grid_columns_count()
-	update_tile_size()
-	redraw_grid()
+	update_nodes()
 
 func set_gems_revealed(value: bool) -> void:
 	gems_revealed = value
@@ -44,10 +42,13 @@ var gems: Array[Gem] = []
 signal gem_clicked(index: int)
 
 func _ready() -> void:
+	update_nodes.call_deferred()
+	panel.resized.connect(func(): panel.pivot_offset = panel.size / 2)
+
+func update_nodes() -> void:
 	update_grid_columns_count()
 	update_tile_size()
 	redraw_grid()
-	panel.resized.connect(func(): panel.pivot_offset = panel.size / 2)
 
 func update_grid_columns_count() -> void:
 	if not is_node_ready(): return

@@ -86,7 +86,6 @@ func update_node_sizes() -> void:
 	custom_minimum_size = Vector2(tile_size, tile_size)
 	size = custom_minimum_size
 	pivot_offset = size / 2
-	print(tile_size, ' ', tile_size * .69, ' ', tile_size * .31, ' ', (tile_size * .31) / 2)
 	gem_texture_rect.size = Vector2(tile_size * .69, tile_size * .68)
 	gem_texture_rect.position = Vector2((tile_size * .31) / 2, (tile_size * .32) / 2)
 
