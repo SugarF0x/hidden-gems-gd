@@ -116,7 +116,6 @@ func call_with_delay(fun: Callable, delay_time: float) -> void:
 func instnant_fade() -> void:
 	animation_player.play("fade")
 	animation_player.seek(animation_player.current_animation_length)
-	animation_player.stop()
 
 func fade(value: bool) -> Signal:
 	if (value):
