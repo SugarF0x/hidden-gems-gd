@@ -31,6 +31,7 @@ func setup() -> void:
 func setup_layout() -> void:
 	set_hud_target_positions()
 	set_instructions_target_positions()
+	answer_overlay.instnant_fade()
 
 func initial_transition() -> void:
 	set_starting_node_properties()

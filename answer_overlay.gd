@@ -33,13 +33,17 @@ func _ready() -> void:
 	sync_icon()
 
 func sync_bg_color() -> void:
-	if not panel: return
+	if not is_node_ready(): return
 	var styleBox: StyleBoxFlat = panel.get_theme_stylebox("panel")
 	styleBox.set('bg_color', Color(STATE_TO_COLOR_MAP[state]))
 
 func sync_icon() -> void:
-	if not texture_rect: return
+	if not is_node_ready(): return
 	texture_rect.texture = STATE_TO_TEXTURE_MAP[state]
+
+func instnant_fade() -> void:
+	animation_player.play("fade")
+	animation_player.seek(animation_player.current_animation_length)
 
 func fade(value: bool) -> Signal:
 	if value: 
