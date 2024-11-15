@@ -3,10 +3,15 @@ class_name GameScene extends Control
 
 #region static
 
+# TODO: extract all sound players into a resource
+
 @onready var hud: Hud = %Hud
 @onready var grid: GemGrid = %Grid
 @onready var instructions: Instructions = %Instructions
 @onready var answer_overlay: AnswerOverlay = %AnswerOverlay
+@onready var progressing_player: AudioStreamPlayer = $ProgressingPlayer
+@onready var wrong_player: AudioStreamPlayer = $WrongPlayer
+@onready var celebration_player: AudioStreamPlayer = $CelebrationPlayer
 
 var game_context: GameContext = preload("res://game_context.tres")
 
@@ -25,16 +30,14 @@ func set_starting_node_properties():
 func setup() -> void:
 	setup_layout.call_deferred()
 	grid.gem_clicked.connect(on_gem_pressed)
-	if not Engine.is_editor_hint(): initial_transition.call_deferred()
-	else: randomize_gem_indexes()
+	if not Engine.is_editor_hint(): set_starting_node_properties.call_deferred()
 
 func setup_layout() -> void:
 	set_hud_target_positions()
 	set_instructions_target_positions()
 	answer_overlay.instnant_fade()
 
-func initial_transition() -> void:
-	set_starting_node_properties()
+func start_game() -> void:
 	await hud_in(true)
 	start_round()
 
@@ -61,7 +64,8 @@ func finish_round() -> void:
 			gem.state = Gem.State.MISSED if index in grid.correct_gem_indexes else Gem.State.EMPTY
 			if gem.state == Gem.State.MISSED: is_correct = false
 	
-	if not is_correct: await get_tree().create_timer(1.0).timeout
+	if is_correct: celebration_player.play()
+	else: await get_tree().create_timer(1.0).timeout
 	
 	answer_overlay.set_state(is_correct)
 	answer_overlay.fade(false)
@@ -108,9 +112,16 @@ func instructions_in(val: bool) -> Signal:
 var gems_revealed: int = 0
 func on_gem_pressed(index: int) -> void:
 	gems_revealed += 1
+	var is_correct = index in grid.correct_gem_indexes
+	var is_last_gem = gems_revealed >= grid.correct_gem_indexes.size()
+	
 	var gem: Gem = grid.gems[index]
-	gem.state = Gem.State.FOUND if index in grid.correct_gem_indexes else Gem.State.WRONG
+	gem.state = Gem.State.FOUND if is_correct else Gem.State.WRONG
 	gem.disable()
-	if gems_revealed >= grid.correct_gem_indexes.size(): 
+	
+	if not is_correct: wrong_player.play()
+	elif not is_last_gem: progressing_player.play()
+	
+	if is_last_gem: 
 		gems_revealed = 0
 		finish_round()

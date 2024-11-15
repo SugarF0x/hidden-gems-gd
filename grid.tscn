@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://rhrcaxbp0wpy"]
+[gd_scene load_steps=8 format=3 uid="uid://rhrcaxbp0wpy"]
 
 [ext_resource type="Script" path="res://grid.gd" id="1_g6546"]
+[ext_resource type="AudioStream" uid="uid://ye7mxxof1loe" path="res://assets/sounds/FL_Heavy.mp3" id="2_u7g7c"]
+[ext_resource type="AudioStream" uid="uid://bx1ly15hq8g8o" path="res://assets/sounds/FL_Swoosh.mp3" id="3_bqifa"]
 
 [sub_resource type="Animation" id="Animation_ypld3"]
 length = 0.001
@@ -85,6 +87,12 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(187.5, 406)
 script = ExtResource("1_g6546")
+
+[node name="HeavyPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_u7g7c")
+
+[node name="SwooshPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_bqifa")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Panel")

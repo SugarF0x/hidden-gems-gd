@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://do2c2yhxyuery"]
+[gd_scene load_steps=6 format=3 uid="uid://do2c2yhxyuery"]
 
+[ext_resource type="Script" path="res://hidden_gems_scene.gd" id="1_d630m"]
 [ext_resource type="Texture2D" uid="uid://m4k810srmrml" path="res://assets/background-1.svg" id="1_w2h53"]
 [ext_resource type="Texture2D" uid="uid://cs4dan6tortjv" path="res://assets/background-2.svg" id="2_sbatb"]
 [ext_resource type="PackedScene" uid="uid://c0uit3ap00f1p" path="res://game_scene.tscn" id="4_npw8m"]
+[ext_resource type="PackedScene" uid="uid://qxka1nhn28mb" path="res://countdown.tscn" id="5_3c4in"]
 
 [node name="HiddenGemsScene" type="Node"]
+script = ExtResource("1_d630m")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -40,4 +43,8 @@ grow_vertical = 0
 texture = ExtResource("2_sbatb")
 
 [node name="GameScene" parent="UI" instance=ExtResource("4_npw8m")]
+layout_mode = 1
+
+[node name="Countdown" parent="UI" instance=ExtResource("5_3c4in")]
+visible = false
 layout_mode = 1

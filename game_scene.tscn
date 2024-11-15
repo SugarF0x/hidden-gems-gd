@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://c0uit3ap00f1p"]
+[gd_scene load_steps=9 format=3 uid="uid://c0uit3ap00f1p"]
 
 [ext_resource type="Script" path="res://game_scene.gd" id="1_3pe30"]
 [ext_resource type="PackedScene" uid="uid://c1d48fc3udopa" path="res://hud.tscn" id="1_7lggq"]
 [ext_resource type="PackedScene" uid="uid://dp072yb4so4dj" path="res://instructions.tscn" id="2_fu5pw"]
+[ext_resource type="AudioStream" uid="uid://cuc2e6gybtxnq" path="res://assets/sounds/FL_Progressing.mp3" id="2_hncb0"]
 [ext_resource type="PackedScene" uid="uid://rhrcaxbp0wpy" path="res://grid.tscn" id="3_545e7"]
+[ext_resource type="AudioStream" uid="uid://w2xoe77ni6r2" path="res://assets/sounds/FL_Wrong.mp3" id="3_wvgam"]
+[ext_resource type="AudioStream" uid="uid://cyarc31lwl5ht" path="res://assets/sounds/FL_Celebration.mp3" id="4_ddiwg"]
 [ext_resource type="PackedScene" uid="uid://bumcnypfdkq4e" path="res://answer_overlay.tscn" id="5_spy8v"]
 
 [node name="GameScene" type="Control"]
@@ -14,6 +17,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3pe30")
+
+[node name="ProgressingPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_hncb0")
+
+[node name="WrongPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_wvgam")
+
+[node name="CelebrationPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ddiwg")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -42,7 +54,7 @@ layout_mode = 1
 pivot_offset = Vector2(163.5, 159)
 size_flags_horizontal = 4
 size_flags_vertical = 4
-correct_gem_indexes = Array[int]([5, 4, 0])
+correct_gem_indexes = Array[int]([0, 3])
 
 [node name="Instructions" parent="MarginContainer/Container" instance=ExtResource("2_fu5pw")]
 unique_name_in_owner = true

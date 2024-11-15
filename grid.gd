@@ -16,6 +16,8 @@ enum RevealType {
 @onready var panel: PanelContainer = $Panel
 @onready var margin_container: MarginContainer = $Panel/MarginContainer
 @onready var grid_container: GridContainer = $Panel/MarginContainer/GridContainer
+@onready var heavy_player: AudioStreamPlayer = $HeavyPlayer
+@onready var swoosh_player: AudioStreamPlayer = $SwooshPlayer
 
 #endregion
 #region properties
@@ -123,6 +125,7 @@ func fade(value: bool) -> Signal:
 		return animation_player.animation_finished
 	
 	animation_player.play_backwards("fade")
+	get_tree().create_timer(.2).timeout.connect(func(): heavy_player.play())
 	
 	var gem_animation_pool: Array[Gem] = gems.duplicate()
 	gem_animation_pool.shuffle()
@@ -135,6 +138,8 @@ func fade(value: bool) -> Signal:
 	return animation_player.animation_finished
 
 func play_gems_press(value: bool) -> Signal:
+	if value: swoosh_player.play()
+	
 	var sig: Signal
 	for gem in gems: sig = gem.play_press(value)
 	return sig
