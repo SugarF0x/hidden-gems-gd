@@ -18,7 +18,7 @@ func _ready() -> void:
 	setup()
 
 func set_starting_node_properties():
-	grid.modulate.a = 0
+	grid.instnant_fade()
 	instructions.position = instructions_out_of_bounds_position
 	hud.position = hud_out_of_bounds_position
 
@@ -41,10 +41,10 @@ func start_round() -> void:
 	randomize_gem_indexes()
 	grid.disable_gems()
 	grid.fade(false)
-	grid.reveal_gems()
+	grid.reveal_type = GemGrid.RevealType.ALL
 	await get_tree().create_timer(2.0).timeout
 	await grid.play_gems_press(true)
-	grid.hide_gems()
+	grid.reveal_type = GemGrid.RevealType.SELECTED
 	await grid.play_gems_press(false)
 	await instructions_in(true)
 	grid.enable_gems()

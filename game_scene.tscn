@@ -42,7 +42,7 @@ layout_mode = 1
 pivot_offset = Vector2(163.5, 159)
 size_flags_horizontal = 4
 size_flags_vertical = 4
-correct_gem_indexes = Array[int]([1, 3, 0])
+correct_gem_indexes = Array[int]([0, 5, 1])
 
 [node name="Instructions" parent="MarginContainer/Container" instance=ExtResource("2_fu5pw")]
 unique_name_in_owner = true
