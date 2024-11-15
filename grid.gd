@@ -78,18 +78,18 @@ func update_gem_reveal_state() -> void:
 		var gem = gems[index]
 		
 		match reveal_type:
-			RevealType.NONE: gem.state = Gem.GemState.HIDDEN
-			RevealType.ALL: gem.state = Gem.GemState.FOUND if index in correct_gem_indexes else Gem.GemState.EMPTY
+			RevealType.NONE: gem.state = Gem.State.HIDDEN
+			RevealType.ALL: gem.state = Gem.State.FOUND if index in correct_gem_indexes else Gem.State.EMPTY
 			RevealType.SELECTED: 
-				if index not in selected_gem_indexes: gem.state = Gem.GemState.HIDDEN
-				elif index in correct_gem_indexes: gem.state = Gem.GemState.FOUND
-				else: gem.state = Gem.GemState.WRONG
+				if index not in selected_gem_indexes: gem.state = Gem.State.HIDDEN
+				elif index in correct_gem_indexes: gem.state = Gem.State.FOUND
+				else: gem.state = Gem.State.WRONG
 			RevealType.SELECTED_AND_CORRECT: 
 				if index in selected_gem_indexes: 
-					if index in correct_gem_indexes: gem.state = Gem.GemState.FOUND
-					else: gem.state = Gem.GemState.WRONG
-				elif index in correct_gem_indexes: gem.state = Gem.GemState.MISSED
-				else: gem.state = Gem.GemState.HIDDEN
+					if index in correct_gem_indexes: gem.state = Gem.State.FOUND
+					else: gem.state = Gem.State.WRONG
+				elif index in correct_gem_indexes: gem.state = Gem.State.MISSED
+				else: gem.state = Gem.State.HIDDEN
 
 func redraw_grid() -> void:
 	if not is_node_ready(): return

@@ -5,7 +5,7 @@ class_name Gem extends Control
 
 const ICONS_PATH := "res://assets/gems"
 
-enum GemState {
+enum State {
 	EMPTY,
 	FOUND,
 	HIDDEN,
@@ -14,11 +14,11 @@ enum GemState {
 }
 
 const BACKGROUND_IMAGES: Dictionary = {
-	GemState.EMPTY: preload("res://assets/backgrounds/empty.svg"),
-	GemState.FOUND: preload("res://assets/backgrounds/found.svg"),
-	GemState.HIDDEN: preload("res://assets/backgrounds/hidden.svg"),
-	GemState.MISSED: preload("res://assets/backgrounds/missed.svg"),
-	GemState.WRONG: preload("res://assets/backgrounds/wrong.svg"),
+	State.EMPTY: preload("res://assets/backgrounds/empty.svg"),
+	State.FOUND: preload("res://assets/backgrounds/found.svg"),
+	State.HIDDEN: preload("res://assets/backgrounds/hidden.svg"),
+	State.MISSED: preload("res://assets/backgrounds/missed.svg"),
+	State.WRONG: preload("res://assets/backgrounds/wrong.svg"),
 }
 
 @onready var background_texture_rect: TextureRect = $BackgroundTextureRect
@@ -31,11 +31,11 @@ const max_tile_size: int = 84
 #endregion
 #region properties
 
-@export var state: GemState = GemState.HIDDEN : set = set_state
+@export var state: State = State.HIDDEN : set = set_state
 @export var icon: Texture2D = preload(ICONS_PATH + "/1.svg") : set = set_icon
 @export var tile_size: int = max_tile_size : set = set_tile_size
 
-func set_state(value: GemState) -> void:
+func set_state(value: State) -> void:
 	state = value
 	update_background_image()
 	update_gem_visibility()
@@ -99,7 +99,7 @@ func update_gem_texture() -> void:
 
 func update_gem_visibility() -> void:
 	if not is_node_ready(): return
-	if state == GemState.FOUND or state == GemState.MISSED: gem_texture_rect.visible = true
+	if state == State.FOUND or state == State.MISSED: gem_texture_rect.visible = true
 	else: gem_texture_rect.visible = false
 
 func set_opacity(value: float) -> void: modulate.a = value
