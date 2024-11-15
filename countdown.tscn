@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://qxka1nhn28mb"]
+
+[ext_resource type="Shader" path="res://countdown.gdshader" id="1_0rtm6"]
+[ext_resource type="VideoStream" path="res://assets/countdown-animation.ogv" id="1_m2wp5"]
+[ext_resource type="Script" path="res://countdown.gd" id="1_ml7ms"]
+[ext_resource type="AudioStream" uid="uid://cucfsts6rjpk6" path="res://assets/sounds/FL_Countdown.mp3" id="3_axlsy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_17eal"]
+shader = ExtResource("1_0rtm6")
+shader_parameter/key_color = Color(0, 1, 0, 1)
+shader_parameter/similarity = 0.4
+shader_parameter/smoothness = 0.08
+shader_parameter/spill = 0.1
+
+[node name="Countdown" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ml7ms")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+material = SubResource("ShaderMaterial_17eal")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("1_m2wp5")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_axlsy")
