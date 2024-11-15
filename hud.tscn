@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1d48fc3udopa"]
+[gd_scene load_steps=7 format=3 uid="uid://c1d48fc3udopa"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_o4mxl"]
 [ext_resource type="Texture2D" uid="uid://bikwsvw6868hg" path="res://assets/pause.svg" id="2_lqx1x"]
+[ext_resource type="PackedScene" uid="uid://bakg1fotj8i2j" path="res://steps_counter.tscn" id="3_m4low"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_plhih"]
 
@@ -65,10 +66,10 @@ size_flags_horizontal = 3
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_right = 16
 
-[node name="RoundLabel" type="Label" parent="HBoxContainer/MarginContainer"]
+[node name="StepsCounter" parent="HBoxContainer/MarginContainer" instance=ExtResource("3_m4low")]
 unique_name_in_owner = true
 layout_mode = 2
-text = "1/10"
+size_flags_vertical = 4
 
 [node name="ScoreLabel" type="Label" parent="HBoxContainer/MarginContainer"]
 unique_name_in_owner = true

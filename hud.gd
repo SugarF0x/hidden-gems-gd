@@ -1,8 +1,8 @@
 @tool
 class_name Hud extends PanelContainer
 
-@onready var round_label: Label = %RoundLabel
 @onready var score_label: Label = %ScoreLabel
+@onready var steps_counter: StepsCounter = %StepsCounter
 
 @export var current_round: int = 1:
 	set(value):
@@ -46,12 +46,12 @@ func on_context_stage_current_changed(to: int, _from: int) -> void: current_roun
 func on_context_stage_total_changed(to: int, _from: int) -> void: total_rounds = to
 
 func update_round_label() -> void:
-	if not round_label: return
-	var new_value: String = "{current}/{total}".format({ "current": str(current_round), "total": str(total_rounds) })
-	if round_label.text != new_value: round_label.text = new_value
+	if not is_node_ready(): return
+	steps_counter.current = current_round
+	steps_counter.total = total_rounds
 
 func update_score_label() -> void:
-	if not score_label: return
+	if not is_node_ready(): return
 	if score_label.text != str(score): score_label.text = str(score)
 
 signal pause_pressed
