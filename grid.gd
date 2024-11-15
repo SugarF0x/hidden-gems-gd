@@ -22,7 +22,7 @@ enum RevealType {
 
 @export var grid_size: Vector2i = Vector2i(2,3) : set = set_grid_size
 @export var reveal_type: RevealType = RevealType.ALL : set = set_reveal_type
-@export var correct_gem_indexes: Array[int] = [0, 3] : set = set_correct_gem_indexes
+@export var correct_gem_indexes: Array[int] = [] : set = set_correct_gem_indexes
 @export var selected_gem_indexes: Array[int] = [] : set = set_selected_gem_indexes
 
 var tile_size: int = Gem.max_tile_size : set = set_tile_size
