@@ -9,19 +9,27 @@ class_name StepsCounter extends HBoxContainer
 @export var current: int = 1 : set = set_current
 @export var total: int = 10 : set = set_total
 
-func set_current(value: int = current) -> void:
+func set_current(value: int) -> void:
 	current = value
-	current_label.text = str(value).lpad(str(total).length(), "0")
+	update_current_label()
 
 func set_total(value: int = total) -> void:
 	total = value
-	total_label.text = str(value)
+	update_total_label()
 
 #endregion
 
 func _ready() -> void:
 	update_labels()
 
+func update_current_label() -> void: 
+	if not is_node_ready(): return
+	current_label.text = str(current).lpad(str(total).length(), "0")
+
+func update_total_label() -> void:
+	if not is_node_ready(): return
+	total_label.text = str(total)
+
 func update_labels() -> void:
-	set_current()
-	set_total()
+	update_current_label()
+	update_total_label()

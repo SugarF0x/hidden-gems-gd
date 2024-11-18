@@ -1,33 +1,42 @@
 @tool
 class_name Hud extends PanelContainer
 
+#region static
+
 @onready var score_label: Label = %ScoreLabel
 @onready var steps_counter: StepsCounter = %StepsCounter
+@onready var pause_button: TextureButton = %PauseButton
 
-@export var current_round: int = 1:
-	set(value):
-		current_round = value
-		update_round_label()
+@export var context_conntexted: bool = true
+@export var current_round: int = 1 : set = set_current_round
+@export var total_rounds: int = 10 : set = set_total_rounds
+@export var score: int = 0 : set = set_score
 
-@export var total_rounds: int = 10:
-	set(value):
-		total_rounds = value
-		update_round_label()
+func set_current_round(value: int) -> void:
+	current_round = value
+	update_round_label()
 
-@export var score: int = 0:
-	set(value):
-		score = value
-		update_score_label()
+func set_total_rounds(value: int) -> void:
+	total_rounds = value
+	update_round_label()
+
+func set_score(value: int) -> void:
+	score = value
+	update_score_label()
+
+#endregion
 
 var game_context: GameContext = preload("res://game_context.tres")
 
 func _ready():
+	pause_button.pressed.connect(on_pause_pressed)
 	setup_context_sync()
 	update_round_label()
 	update_score_label()
 
 func setup_context_sync() -> void:
 	if not is_node_ready(): return
+	if not context_conntexted: return
 	if not game_context: return
 	
 	setup_context_connections()

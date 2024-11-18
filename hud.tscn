@@ -54,7 +54,8 @@ theme_override_constants/separation = 0
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7tkpw")
 
-[node name="TextureButton" type="TextureButton" parent="HBoxContainer/PanelContainer"]
+[node name="PauseButton" type="TextureButton" parent="HBoxContainer/PanelContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
 texture_normal = ExtResource("2_lqx1x")
@@ -76,5 +77,3 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 text = "0"
-
-[connection signal="pressed" from="HBoxContainer/PanelContainer/TextureButton" to="." method="on_pause_pressed"]

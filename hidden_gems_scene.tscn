@@ -8,6 +8,7 @@
 
 [node name="HiddenGemsScene" type="Node"]
 script = ExtResource("1_d630m")
+skip_intro = false
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

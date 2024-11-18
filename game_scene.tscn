@@ -47,6 +47,7 @@ mouse_filter = 2
 unique_name_in_owner = true
 layout_mode = 1
 size_flags_vertical = 0
+context_conntexted = null
 
 [node name="Grid" parent="MarginContainer/Container" instance=ExtResource("3_545e7")]
 unique_name_in_owner = true
